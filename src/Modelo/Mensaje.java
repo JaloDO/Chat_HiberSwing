@@ -18,11 +18,11 @@ public class Mensaje {
 	private int codigo;
 	
 	@ManyToOne
-	@JoinColumn(name="usuario", referencedColumnName = "id")
+	@JoinColumn(name="emisor", referencedColumnName = "id")
 	private Usuario emisor;
 	
 	@ManyToOne
-	@JoinColumn(name="usuario", referencedColumnName = "id")
+	@JoinColumn(name="receptor", referencedColumnName = "id")
 	private Usuario receptor;
 	
 	@Column(nullable=false)
