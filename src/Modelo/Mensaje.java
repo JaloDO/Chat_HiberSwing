@@ -18,15 +18,50 @@ public class Mensaje {
 	private int codigo;
 	
 	@ManyToOne
-	@JoinColumn(name="usuario", referencedColumnName = "id")
+	@JoinColumn(name="emisor", referencedColumnName = "id")
 	private Usuario emisor;
 	
 	@ManyToOne
-	@JoinColumn(name="usuario", referencedColumnName = "id")
+	@JoinColumn(name="receptor", referencedColumnName = "id")
 	private Usuario receptor;
 	
 	@Column(nullable=false)
 	private String contenido;
 	
+	public Mensaje() {
+		
+	}
+
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
+	public Usuario getEmisor() {
+		return emisor;
+	}
+
+	public void setEmisor(Usuario emisor) {
+		this.emisor = emisor;
+	}
+
+	public Usuario getReceptor() {
+		return receptor;
+	}
+
+	public void setReceptor(Usuario receptor) {
+		this.receptor = receptor;
+	}
+
+	public String getContenido() {
+		return contenido;
+	}
+
+	public void setContenido(String contenido) {
+		this.contenido = contenido;
+	}
 	
 }
