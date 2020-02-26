@@ -22,5 +22,8 @@ public class Usuario {
 	private String password;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "emisor")
-	private List<Mensaje> listaMensajes = new ArrayList<Mensaje>();
+	private List<Mensaje> enviados = new ArrayList<Mensaje>();
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "receptor")
+	private List<Mensaje> recibidos = new ArrayList<Mensaje>();
 }
