@@ -2,8 +2,11 @@ package Modelo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -11,12 +14,15 @@ import javax.persistence.Table;
 public class Mensaje {
 	@Column(name="id",nullable=false)
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int codigo;
 	
-	@JoinColumn(name="emisor", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name="usuario", referencedColumnName = "id")
 	private Usuario emisor;
 	
-	@JoinColumn(name="receptor", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name="usuario", referencedColumnName = "id")
 	private Usuario receptor;
 	
 	@Column(nullable=false)
