@@ -1,7 +1,13 @@
 package Modelo;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+
 
 public class Conector {
 
@@ -34,6 +40,135 @@ public class Conector {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public Usuario iniciarSesion(Usuario u) {
+		Usuario resultado = null;
+		
+		try {
+			Query consulta = em.createQuery("from Usuario where nombre = :nombre and password = :clave");
+			consulta.setParameter("nombre", u.getNombre());
+			consulta.setParameter("clave", u.getPassword());
+			List<Usuario> r = consulta.getResultList();
+			if(!r.isEmpty()) {
+				resultado=r.get(0);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	public Usuario existeUsername(Usuario u) {
+		Usuario resultado = null;
+		
+		try {
+			resultado = em.find(Usuario.class, u.getNombre());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	public boolean registrarUsuario(Usuario u) {
+		boolean resultado = false;
+		EntityTransaction t = null;
+		try {
+			t = em.getTransaction();
+			t.begin();
+			em.persist(u);
+			t.commit();
+			resultado = true;
+		}catch(Exception e) {
+			t.rollback();
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	public boolean modificarUsuario(Usuario u) {
+		boolean resultado = false;
+		EntityTransaction t = null;
+		try {
+			t=em.getTransaction();
+			t.begin();
+			em.merge(u);
+			t.commit();
+			resultado = true;
+		}catch(Exception e) {
+			t.rollback();
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	public boolean enviarMensaje(Mensaje m) {
+		boolean resultado = false;
+		EntityTransaction t = null;
+		try {
+			t = em.getTransaction();
+			t.begin();
+			em.persist(m);
+			t.commit();
+			resultado = true;
+		}catch(Exception e) {
+			t.rollback();
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	public List<Mensaje> mensajesEnviados(Usuario u){
+		List<Mensaje> resultado = null;
+		
+		try {
+			Query consulta = em.createQuery("from Mensaje where emisor = :emisor");
+			consulta.setParameter("emisor", u.getId());
+			resultado = consulta.getResultList();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	public List<Mensaje> mensajesRecibidos(Usuario u){
+		List<Mensaje> resultado = null;
+		
+		try {
+			Query consulta = em.createQuery("from Mensaje where receptor = :receptor");
+			consulta.setParameter("receptor", u.getId());
+			resultado = consulta.getResultList();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	public boolean borrarMensaje(Mensaje m) {
+		boolean resultado = false;
+		EntityTransaction t = null;
+		try {
+			t = em.getTransaction();
+			t.begin();
+			em.remove(m);
+			t.commit();
+			resultado = true;
+			em.clear();
+		} catch (Exception e) {
+			t.rollback();
+			e.printStackTrace();
+		}
+		return resultado;
 	}
 	
 	
