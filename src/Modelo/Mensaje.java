@@ -45,6 +45,7 @@ public class Mensaje {
 		this.receptor = receptor;
 		this.contenido = contenido;
 		this.fecha = fecha;
+	}
 
 
 	public int getCodigo() {

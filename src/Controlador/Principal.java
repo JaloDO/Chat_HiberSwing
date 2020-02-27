@@ -11,14 +11,16 @@ public class Principal {
 		//Ventana de la aplicación
 		Ventana v = new Ventana();
 		v.setVisible(true);
-		/*		
-		//Componente de acceso y manipulación a la BD Biblioteca
+		//Acceso a BD
 		Conector chat = new Conector();
 				
 		if(chat.getEm()!=null) {
 			
 		}
-		*/
+		else {
+			
+		}
+		
 		
 	}
 }
