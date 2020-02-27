@@ -81,5 +81,7 @@ public class Usuario {
 		this.recibidos = recibidos;
 	}
 	
-	
+	public void mostrar() {
+		System.out.println("ID: "+id+"\tNombre: "+nombre);
+	}
 }
