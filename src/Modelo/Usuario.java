@@ -29,9 +29,16 @@ public class Usuario {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "receptor")
 	private List<Mensaje> recibidos = new ArrayList<Mensaje>();
-
+	
 	public Usuario() {
-		super();
+	}
+
+	public Usuario(int id, String nombre, String password, List<Mensaje> enviados, List<Mensaje> recibidos) {
+		this.id = id;
+		this.nombre = nombre;
+		this.password = password;
+		this.enviados = enviados;
+		this.recibidos = recibidos;
 	}
 
 	public int getId() {
