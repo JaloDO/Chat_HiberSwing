@@ -25,6 +25,21 @@ public class ButtonController implements ActionListener{
 		//obtenemos el layout actual (la parte central, que es la que modificaremos)
 		CardLayout layout = (CardLayout) ventana.getPanelCentral().getLayout();
 		
+		switch(accion) {
+		
+		case "login":
+			ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION LOGIN");
+			break;
+		case "resetLogin":
+			ventana.getPanelCentral().getLoginFrame().getTxtName().setText("");
+			ventana.getPanelCentral().getLoginFrame().getTxtPass().setText("");
+			ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION RESET FUNCIONA");
+			break;
+		case "crearCuenta":
+			ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION CREAR");
+			break;
+		}
+		
 	}
 
 	

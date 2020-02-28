@@ -35,10 +35,10 @@ public class Ventana extends JFrame{
 		container.add(t);*/
 		
 		//Encabezado de la aplicación
-		JLabel titulo = new JLabel("EASY CHAT");
+		JLabel titulo = new JLabel("EASY CHAT - LOGIN");
 		titulo.setFont(new Font("Verdana", Font.PLAIN, 24));
 		titulo.setBackground(Color.BLACK);
-		titulo.setForeground(new Color(0.58f,0.79f,0.9f));
+		titulo.setForeground(Color.BLUE.brighter());
 		titulo.setHorizontalAlignment(SwingConstants.CENTER);
 		titulo.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 		container.add(titulo,BorderLayout.NORTH);

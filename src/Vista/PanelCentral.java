@@ -14,7 +14,7 @@ public class PanelCentral extends JPanel{
 		super();
 		this.setLayout(new CardLayout(20,20));
 		
-		loginFrame = new PanelLogin();
+		loginFrame = new PanelLogin(accion);
 		this.add(loginFrame,"login");
 	}
 	
