@@ -9,7 +9,7 @@ public class Principal {
 	
 	public static void main(String[] args) {
 		
-		//Ventana de la aplicación
+		//Ventana de la aplicacion
 		Ventana ventana = null;
 		//Acceso a BD
 		Conector chat = new Conector();
