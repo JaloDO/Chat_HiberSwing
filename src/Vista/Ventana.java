@@ -14,12 +14,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 
+import Controlador.ButtonController;
+
 public class Ventana extends JFrame{
 
 	private PanelCentral panelCentral;
 	
-	public Ventana() {
-
+	public Ventana(ButtonController accion) {
+		super();
 		this.setTitle("Main");
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
@@ -41,7 +43,22 @@ public class Ventana extends JFrame{
 		titulo.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 		container.add(titulo,BorderLayout.NORTH);
 		
+		//ventana central
+		panelCentral = new PanelCentral(accion);
+		container.add(panelCentral,BorderLayout.CENTER);
 		
+		//hacemos visible la ventana
+		this.setVisible(true);
+		
+		
+	}
+
+	public PanelCentral getPanelCentral() {
+		return panelCentral;
+	}
+
+	public void setPanelCentral(PanelCentral panelCentral) {
+		this.panelCentral = panelCentral;
 	}
 	
 	
