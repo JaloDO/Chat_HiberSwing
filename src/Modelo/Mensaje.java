@@ -77,6 +77,10 @@ public class Mensaje {
 
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
+	}
+
+	public Date getFecha() {
+		return fecha;
 	}	
 	
 }

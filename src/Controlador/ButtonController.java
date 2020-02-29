@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import Modelo.Conector;
 import Modelo.Usuario;
+import Vista.PanelMensajes;
 import Vista.Ventana;
 
 public class ButtonController implements ActionListener{
@@ -40,7 +41,14 @@ public class ButtonController implements ActionListener{
 			u = conector.iniciarSesion(u);
 			if(u!=null) {
 				ventana.getPanelCentral().setUsuario(u);
+				//Quitar JPanel de login de PanelCentral
 				ventana.getPanelCentral().remove(ventana.getPanelCentral().getLoginFrame());
+				//Crear nuevo PanelMensajes y asignarlo a PanelCentral
+				PanelMensajes mensajesFrame = new PanelMensajes(this);
+				ventana.getPanelCentral().setMensajesFrame(mensajesFrame);
+				ventana.getPanelCentral().add(mensajesFrame, "mensajes");
+				//Actualizar tabla de mensajes
+				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
 				
 			}
 			else {
