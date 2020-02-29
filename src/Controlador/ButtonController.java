@@ -39,6 +39,7 @@ public class ButtonController implements ActionListener{
 			u.setPassword(ventana.getPanelCentral().getLoginFrame().getTxtPass().getText());
 			u = conector.iniciarSesion(u);
 			if(u!=null) {
+				ventana.getPanelCentral().setUsuario(u);
 				ventana.getPanelCentral().remove(ventana.getPanelCentral().getLoginFrame());
 				
 			}
