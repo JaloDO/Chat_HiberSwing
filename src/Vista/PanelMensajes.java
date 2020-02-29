@@ -28,7 +28,7 @@ public class PanelMensajes extends JPanel {
 	titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 	titulo.setHorizontalAlignment(SwingConstants.CENTER);
 	this.add(titulo, BorderLayout.NORTH);
-		
+
 	JTable tablaMensajes;		
 		
 	
