@@ -4,10 +4,12 @@ import java.awt.CardLayout;
 import javax.swing.JPanel;
 
 import Controlador.ButtonController;
+import Modelo.Usuario;
 
 public class PanelCentral extends JPanel{
 	
 	private PanelLogin loginFrame;
+	private Usuario usuario;
 	
 	//constructor
 	public PanelCentral (ButtonController accion) {
@@ -27,6 +29,14 @@ public class PanelCentral extends JPanel{
 
 	public void setLoginFrame(PanelLogin loginFrame) {
 		this.loginFrame = loginFrame;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	
