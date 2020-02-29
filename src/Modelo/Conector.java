@@ -61,11 +61,29 @@ public class Conector {
 		return resultado;
 	}
 	
-	public Usuario existeUsername(Usuario u) {
+	public boolean existeUsername(Usuario u) {
+		boolean resultado = false;
+		
+		try {
+			Query consulta = em.createQuery("from Usuario where nombre = :nombre");
+			consulta.setParameter("nombre", u.getNombre());
+			List<Usuario> r = consulta.getResultList();
+			if(!r.isEmpty()) {
+				resultado=true;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
+	public Usuario obtenerUsuario(Usuario u) {
 		Usuario resultado = null;
 		
 		try {
-			resultado = em.find(Usuario.class, u.getNombre());
+			resultado = em.find(Usuario.class, u.getId());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
