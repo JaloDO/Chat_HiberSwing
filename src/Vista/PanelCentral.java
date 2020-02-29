@@ -9,6 +9,7 @@ import Modelo.Usuario;
 public class PanelCentral extends JPanel{
 	
 	private PanelLogin loginFrame;
+	private PanelMensajes mensajesFrame;
 	private Usuario usuario;
 	
 	//constructor
@@ -19,7 +20,6 @@ public class PanelCentral extends JPanel{
 		loginFrame = new PanelLogin(accion);
 		this.add(loginFrame,"login");
 	}
-	
 	
 	
 	//getter & setter
@@ -37,6 +37,14 @@ public class PanelCentral extends JPanel{
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public PanelMensajes getMensajesFrame() {
+		return mensajesFrame;
+	}
+
+	public void setMensajesFrame(PanelMensajes mensajesFrame) {
+		this.mensajesFrame = mensajesFrame;
 	}
 	
 	
