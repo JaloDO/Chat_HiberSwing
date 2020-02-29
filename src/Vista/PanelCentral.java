@@ -1,6 +1,8 @@
 package Vista;
 
 import java.awt.CardLayout;
+import java.awt.Component;
+
 import javax.swing.JPanel;
 
 import Controlador.ButtonController;
@@ -10,6 +12,7 @@ public class PanelCentral extends JPanel{
 	
 	private PanelLogin loginFrame;
 	private Usuario usuario;
+	private PanelModificar modificarFrame;
 	
 	//constructor
 	public PanelCentral (ButtonController accion) {
@@ -18,6 +21,7 @@ public class PanelCentral extends JPanel{
 		
 		loginFrame = new PanelLogin(accion);
 		this.add(loginFrame,"login");
+		
 	}
 	
 	
@@ -38,6 +42,5 @@ public class PanelCentral extends JPanel{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
+
 }
