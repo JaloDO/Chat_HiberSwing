@@ -135,10 +135,15 @@ public class ButtonController implements ActionListener{
 			String btn = ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().getText();
 			u = ventana.getPanelCentral().getUsuario();
 			if(btn.equals("Ver Enviados")) {
+				//cambiamos la tabla 
+				ventana.getPanelCentral().getMensajesFrame().getSuperior().remove(ventana.getPanelCentral().getMensajesFrame().getTabla());
+				ventana.getPanelCentral().getMensajesFrame().getSuperior().add(ventana.getPanelCentral().getMensajesFrame().getTabla2());
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
 				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Recibidos");
 			}
 			else {
+				ventana.getPanelCentral().getMensajesFrame().getSuperior().remove(ventana.getPanelCentral().getMensajesFrame().getTabla2());
+				ventana.getPanelCentral().getMensajesFrame().getSuperior().add(ventana.getPanelCentral().getMensajesFrame().getTabla());
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
 				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Enviados");
 			}
@@ -173,6 +178,10 @@ public class ButtonController implements ActionListener{
 				}
 			}
 			resetMensaje();
+			break;
+			
+		case "borrar":
+			JOptionPane.showMessageDialog(null, "Accion borrar Mensaje");
 			break;
 		}
 	}

@@ -25,17 +25,21 @@ import Modelo.Mensaje;
 
 public class PanelMensajes extends JPanel {
 	
-	private DefaultTableModel modeloTabla;
+	private DefaultTableModel modeloTabla, modeloTabla2;
 	private JTextField txtDestino, txtContenido;
 	private JButton btnEnviar, btnCambiar;
 	private JLabel lblTitulo;
+	private ButtonController accion;
+	private JScrollPane tabla, tabla2;
+	private JPanel superior;
 	
 	public PanelMensajes (ButtonController accion) {
-		
+	this.accion = accion;
+	
 	this.setLayout(new GridLayout(0, 1));
 	
 	//Añadir dos subpaneles
-	JPanel superior = new JPanel();
+	superior = new JPanel();
 	superior.setLayout(new BorderLayout(0, 0));
 	this.add(superior);
 	JPanel inferior = new JPanel();
@@ -48,25 +52,45 @@ public class PanelMensajes extends JPanel {
 	lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 	superior.add(lblTitulo, BorderLayout.NORTH);
 	
-	//Tabla de mensajes
-	JTable tablaMensajes;		
 	
+	//boton cambiar recibidos por enviados y viceversa
+	btnCambiar = new JButton("Ver Enviados");
+	btnCambiar.setActionCommand("cambiarMensajes");
+	btnCambiar.addActionListener(accion);
+	superior.add(btnCambiar, BorderLayout.WEST);
+	
+		
+	//Tabla de mensajes
+	JTable tablaMensajes;
+	JTable tablaMensajes2;
+	//distintas tablas para mensajes enviados o recibidos
 	//Columnas
 	String[] columnas = {"Emisor","Destinatario","Contenido", "Fecha"};
 	//Celdas no editables
 	modeloTabla = new DefaultTableModel(columnas, 0) {
 		public boolean isCellEditable(int row, int column)
-	    	{
-		      return false;//This causes all cells to be not editable
-		    }
+		{
+			return false;//This causes all cells to be not editable
+			}
+		};
+		tablaMensajes =  new JTable(modeloTabla);
+		tablaMensajes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	//modelo para enviados
+	//Columnas
+	String[] columnas2 = {"Emisor","Destinatario","Contenido", "Fecha",""};
+	//Celdas no editables
+	modeloTabla2 = new DefaultTableModel(columnas2, 0) {
+		public boolean isCellEditable(int row, int column)
+		{
+			return false;//This causes all cells to be not editable
+			}
+		};
+		tablaMensajes2 =  new JTable(modeloTabla2);
+		tablaMensajes2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-	};
-	tablaMensajes =  new JTable(modeloTabla);
-	tablaMensajes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	
-	
-
-	JScrollPane tabla = new JScrollPane(tablaMensajes);
+	tabla = new JScrollPane(tablaMensajes);
 	superior.add(tabla, BorderLayout.CENTER);
+	tabla2 = new JScrollPane(tablaMensajes2);
 	
 	
 	//enlace para modificar contraseña
@@ -99,11 +123,7 @@ public class PanelMensajes extends JPanel {
 	});
 	superior.add(lblModificar, BorderLayout.SOUTH);
 	
-	//boton cambiar recibidos por enviados y viceversa
-	btnCambiar = new JButton("Ver Enviados");
-	btnCambiar.setActionCommand("cambiarMensajes");
-	btnCambiar.addActionListener(accion);
-	superior.add(btnCambiar, BorderLayout.WEST);
+	
 	
 	//Componentes formulario para enviar mensaje
 	JLabel lblDestino = new JLabel("Destinatario: ");
@@ -129,26 +149,51 @@ public class PanelMensajes extends JPanel {
 	
 	public void actualizarTabla(List<Mensaje> mensajes) {
 		
-		//Borramos los datos de la tabla
-		int filas = modeloTabla.getRowCount();
-			if(filas>0){
-				for(int i=filas-1;i>=0;i--){
-					modeloTabla.removeRow(i);
+		if(this.getBtnCambiar().getText().equals("Ver Recibidos")) {
+			//Borramos los datos de la tabla
+			int filas = modeloTabla.getRowCount();
+				if(filas>0){
+					for(int i=filas-1;i>=0;i--){
+						modeloTabla.removeRow(i);
+					}
 				}
+			
+			//Rellenamos de nuevo la tabla				
+			for(int i=0;i<mensajes.size();i++){
+				Mensaje m = mensajes.get(i);
+				SimpleDateFormat formato = new SimpleDateFormat("dd-MMMM-yyyy");
+				String fecha = formato.format(m.getFecha());
+				Object[] fila = {m.getEmisor().getNombre(),
+								m.getReceptor().getNombre(),
+								m.getContenido(),
+								fecha};
+				modeloTabla.addRow(fila);
 			}
-		
-		//Rellenamos de nuevo la tabla				
-		for(int i=0;i<mensajes.size();i++){
-			Mensaje m = mensajes.get(i);
-			SimpleDateFormat formato = new SimpleDateFormat("dd-MMMM-yyyy");
-			String fecha = formato.format(m.getFecha());
-			Object[] fila = {m.getEmisor().getNombre(),
-							m.getReceptor().getNombre(),
-							m.getContenido(),
-							fecha};
-			modeloTabla.addRow(fila);
-		}
-				
+		}else {
+			//Borramos los datos de la tabla
+			int filas = modeloTabla2.getRowCount();
+				if(filas>0){
+					for(int i=filas-1;i>=0;i--){
+						modeloTabla2.removeRow(i);
+					}
+				}
+			
+			//Rellenamos de nuevo la tabla				
+			for(int i=0;i<mensajes.size();i++){
+				Mensaje m = mensajes.get(i);
+				JButton btnBorrar = new JButton("Borrar");
+				btnBorrar.setActionCommand("borrar");
+				btnBorrar.addActionListener(accion);
+				SimpleDateFormat formato = new SimpleDateFormat("dd-MMMM-yyyy");
+				String fecha = formato.format(m.getFecha());
+				Object[] fila = {m.getEmisor().getNombre(),
+								m.getReceptor().getNombre(),
+								m.getContenido(),
+								fecha,
+								btnBorrar};
+				modeloTabla2.addRow(fila);
+			}
+		}		
 	}
 
 	public JButton getBtnCambiar() {
@@ -174,4 +219,47 @@ public class PanelMensajes extends JPanel {
 	public void setTxtContenido(JTextField txtContenido) {
 		this.txtContenido = txtContenido;
 	}
+
+	public DefaultTableModel getModeloTabla() {
+		return modeloTabla;
+	}
+
+	public void setModeloTabla(DefaultTableModel modeloTabla) {
+		this.modeloTabla = modeloTabla;
+	}
+
+	public DefaultTableModel getModeloTabla2() {
+		return modeloTabla2;
+	}
+
+	public void setModeloTabla2(DefaultTableModel modeloTabla2) {
+		this.modeloTabla2 = modeloTabla2;
+	}
+
+	public JScrollPane getTabla() {
+		return tabla;
+	}
+
+	public void setTabla(JScrollPane tabla) {
+		this.tabla = tabla;
+	}
+
+	public JScrollPane getTabla2() {
+		return tabla2;
+	}
+
+	public void setTabla2(JScrollPane tabla2) {
+		this.tabla2 = tabla2;
+	}
+
+	public JPanel getSuperior() {
+		return superior;
+	}
+
+	public void setSuperior(JPanel superior) {
+		this.superior = superior;
+	}
+	
+	
+	
 }
