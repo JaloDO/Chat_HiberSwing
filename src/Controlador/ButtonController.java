@@ -180,23 +180,29 @@ public class ButtonController implements ActionListener{
 			break;
 			
 		case "borrar":
-			int id = ventana.getPanelCentral().getMensajesFrame().getId_mensaje();
-			if(!conector.existeMensaje(id)) {
-				JOptionPane.showMessageDialog(null, "El mensaje no existe");
+			if(ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().getText().equals("Ver Enviados")) {
+				JOptionPane.showMessageDialog(null, "No se pueden borrar los mensajes recibidos");
 			}
 			else {
-				Mensaje mns = new Mensaje();
-				mns.setCodigo(id);
-				if(!conector.borrarMensaje(mns)) {
-					JOptionPane.showMessageDialog(null, "Error al borrar el mensaje");
+				int id = ventana.getPanelCentral().getMensajesFrame().getId_mensaje();
+				if(!conector.existeMensaje(id)) {
+					JOptionPane.showMessageDialog(null, "El mensaje no existe");
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Mensaje borrado con éxito");
-					ventana.getPanelCentral().validate();
-					ventana.getPanelCentral().repaint();
+					Mensaje mns = new Mensaje();
+					mns.setCodigo(id);
+					if(!conector.borrarMensaje(mns)) {
+						JOptionPane.showMessageDialog(null, "Error al borrar el mensaje");
+					}
+					else {
+						u = ventana.getPanelCentral().getUsuario();
+						JOptionPane.showMessageDialog(null, "Mensaje borrado con éxito");
+						ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
+						ventana.getPanelCentral().validate();
+						ventana.getPanelCentral().repaint();
+					}
 				}
 			}
-			
 			break;
 		}
 	}
