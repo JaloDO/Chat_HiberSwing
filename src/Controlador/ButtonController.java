@@ -49,7 +49,7 @@ public class ButtonController implements ActionListener{
 				//Crear nuevo PanelMensajes y asignarlo a PanelCentral
 				PanelMensajes mensajesFrame = new PanelMensajes(this);
 				ventana.getPanelCentral().setMensajesFrame(mensajesFrame);
-				ventana.getPanelCentral().add(mensajesFrame, "mensajes");
+				ventana.getPanelCentral().add(ventana.getPanelCentral().getMensajesFrame(), "mensajes");
 				//Actualizar tabla de mensajes
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
 				
