@@ -79,6 +79,24 @@ public class Conector {
 		return resultado;
 	}
 	
+	public Usuario obtenerDestinatario(Usuario u) {
+		Usuario resultado = null;
+		
+		try {
+			Query consulta = em.createQuery("from Usuario where nombre = :nombre");
+			consulta.setParameter("nombre", u.getNombre());
+			List<Usuario> r = consulta.getResultList();
+			if(!r.isEmpty()) {
+				resultado=r.get(0);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
 	public Usuario obtenerUsuario(Usuario u) {
 		Usuario resultado = null;
 		
