@@ -102,8 +102,7 @@ public class ButtonController implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Los campos no coinciden");
 			}
 			else {
-				u = new Usuario();
-				u.setNombre(modificarFrame.getLblName().getText());
+				u = ventana.getPanelCentral().getUsuario();
 				u.setPassword(newPass);
 				if(!conector.modificarUsuario(u)) {
 					JOptionPane.showMessageDialog(null, "Error al modificar la contraseña");
