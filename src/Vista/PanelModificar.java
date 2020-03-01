@@ -1,7 +1,9 @@
 package Vista;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.FlowLayout;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -20,38 +22,41 @@ public class PanelModificar extends JPanel{
 	
 	public PanelModificar(ButtonController accion, Usuario user) {
 		
+		this.setLayout(new FlowLayout());
+		
+		
 		lblName = new JLabel(user.getNombre());
 		lblName.setFont(new Font("Verdana", Font.PLAIN, 30));
 		lblName.setForeground(Color.BLUE.brighter());
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblName);
+		this.add(lblName);
 		
 		JLabel lblPass = new JLabel("Nueva Contraseña: ");
 		lblPass.setFont(new Font("Verdana", Font.PLAIN, 24));
 		lblPass.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblPass);
+		this.add(lblPass);
 		txtPass = new JTextField();
 		txtPass.setColumns(16);
 		txtPass.setEnabled(true);
 		txtPass.setHorizontalAlignment(SwingConstants.LEFT);
-		add(txtPass);
+		this.add(txtPass);
 		
 		JLabel lblPass2 = new JLabel("Confirmar Contraseña: ");
 		lblPass2.setFont(new Font("Verdana", Font.PLAIN, 24));
 		lblPass2.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblPass2);
+		this.add(lblPass2);
 		txtPass2 = new JTextField();
 		txtPass2.setColumns(16);
 		txtPass2.setEnabled(true);
 		txtPass2.setHorizontalAlignment(SwingConstants.LEFT);
-		add(txtPass2);
+		this.add(txtPass2);
 		
 		JButton btnModificar = new JButton();
 		btnModificar.setText("Modificar");
 		btnModificar.setActionCommand("modificarContrasena");
 		btnModificar.addActionListener(accion);
 		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		add(btnModificar);
+		this.add(btnModificar);
 		
 		
 		lblMessage = new JLabel();
@@ -59,7 +64,7 @@ public class PanelModificar extends JPanel{
 		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblMessage.setForeground(Color.RED);
-		add(lblMessage);
+		this.add(lblMessage);
 		
 		
 		JButton btnVolverMensajes = new JButton();
@@ -67,7 +72,7 @@ public class PanelModificar extends JPanel{
 		btnVolverMensajes.setActionCommand("mensajes");
 		btnVolverMensajes.addActionListener(accion);
 		btnVolverMensajes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		add(btnVolverMensajes);
+		this.add(btnVolverMensajes);
 		
 	}
 
@@ -102,4 +107,5 @@ public class PanelModificar extends JPanel{
 	public void setLblName(JLabel lblName) {
 		this.lblName = lblName;
 	}
+	
 }

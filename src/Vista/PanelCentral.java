@@ -50,6 +50,16 @@ public class PanelCentral extends JPanel{
 	public void setMensajesFrame(PanelMensajes mensajesFrame) {
 		this.mensajesFrame = mensajesFrame;
 	}
+
+
+	public PanelModificar getModificarFrame() {
+		return modificarFrame;
+	}
+
+
+	public void setModificarFrame(PanelModificar modificarFrame) {
+		this.modificarFrame = modificarFrame;
+	}
 	
 	
 }

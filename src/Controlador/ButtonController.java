@@ -43,20 +43,21 @@ public class ButtonController implements ActionListener{
 			u.setPassword(ventana.getPanelCentral().getLoginFrame().getTxtPass().getText());
 			u = conector.iniciarSesion(u);
 			if(u!=null) {
-				modificarFrame = new PanelModificar(this,u);
 				ventana.getPanelCentral().setUsuario(u);
 				//Quitar JPanel de login de PanelCentral
 				ventana.getPanelCentral().remove(ventana.getPanelCentral().getLoginFrame());
 				//Crear nuevo PanelMensajes y asignarlo a PanelCentral
 				mensajesFrame = new PanelMensajes(this);
 				ventana.getPanelCentral().setMensajesFrame(mensajesFrame);
-				ventana.getPanelCentral().add(mensajesFrame, "mensajes");
+				ventana.getPanelCentral().add(ventana.getPanelCentral().getMensajesFrame(), "mensajes");
+				ventana.getPanelCentral().validate();
+				ventana.getPanelCentral().repaint();
 				//Actualizar tabla de mensajes
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
 				
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Datos de inicio de sesiï¿½n incorrectos");
+				JOptionPane.showMessageDialog(null, "Datos de inicio de sesion incorrectos");
 			}
 			resetLogin();
 			break;
@@ -73,7 +74,9 @@ public class ButtonController implements ActionListener{
 			u.setPassword(ventana.getPanelCentral().getLoginFrame().getTxtPass().getText());
 			
 			if(u.getPassword().equals("") || u.getNombre().equals("")) {
-				JOptionPane.showMessageDialog(null, "No puede haber campos vacíos");
+
+				JOptionPane.showMessageDialog(null, "No puede haber campos vacios");
+
 			}
 			else if(!conector.existeUsername(u)) {
 				if(conector.registrarUsuario(u)) {
@@ -99,16 +102,14 @@ public class ButtonController implements ActionListener{
 				JOptionPane.showMessageDialog(null, "Los campos no coinciden");
 			}
 			else {
-				u = new Usuario();
-				u.setNombre(modificarFrame.getLblName().getText());
+				u = ventana.getPanelCentral().getUsuario();
 				u.setPassword(newPass);
 				if(!conector.modificarUsuario(u)) {
 					JOptionPane.showMessageDialog(null, "Error al modificar la contraseña");
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Has cambiado la contraseña");
-					ventana.getPanelCentral().remove(modificarFrame);
-					ventana.getPanelCentral().add(ventana.getPanelCentral().getMensajesFrame());
+
 				}
 			}
 			resetModificar();
@@ -121,8 +122,12 @@ public class ButtonController implements ActionListener{
 			break;
 			
 		case "modificar":
-			ventana.getPanelCentral().remove(mensajesFrame);
-			ventana.getPanelCentral().add(modificarFrame);
+			modificarFrame = new PanelModificar(this, ventana.getPanelCentral().getUsuario());
+			ventana.getPanelCentral().setModificarFrame(modificarFrame);
+			ventana.getPanelCentral().remove(ventana.getPanelCentral().getMensajesFrame());
+			ventana.getPanelCentral().add(ventana.getPanelCentral().getModificarFrame());
+			ventana.getPanelCentral().validate();
+			ventana.getPanelCentral().repaint();
 			break;
 		}
 		

@@ -2,7 +2,9 @@ package Vista;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -13,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -23,18 +26,30 @@ import Modelo.Mensaje;
 public class PanelMensajes extends JPanel {
 	
 	private DefaultTableModel modeloTabla;
+	private JTextField txtDestino, txtContenido;
+	private JButton btnEnviar;
+	private JLabel lblTitulo;
 	
 	public PanelMensajes (ButtonController accion) {
 		
-	this.setLayout(new BorderLayout(0,0));
-		
-	JLabel titulo = new JLabel("MENSAJES");
-	titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-	titulo.setHorizontalAlignment(SwingConstants.CENTER);
-	this.add(titulo, BorderLayout.NORTH);
-		
+	this.setLayout(new GridLayout(0, 1));
+	
+	//Añadir dos subpaneles
+	JPanel superior = new JPanel();
+	superior.setLayout(new BorderLayout(0, 0));
+	this.add(superior);
+	JPanel inferior = new JPanel();
+	inferior.setLayout(new FlowLayout());
+	this.add(inferior);
+	
+	
+	lblTitulo = new JLabel("MENSAJES");
+	lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+	lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+	superior.add(lblTitulo, BorderLayout.NORTH);
+	
+	//Tabla de mensajes
 	JTable tablaMensajes;		
-		
 	
 	//Columnas
 	String[] columnas = {"Emisor","Destinatario","Contenido", "Fecha"};
@@ -51,7 +66,8 @@ public class PanelMensajes extends JPanel {
 	
 
 	JScrollPane tabla = new JScrollPane(tablaMensajes);
-	add(tabla, BorderLayout.CENTER);
+	superior.add(tabla, BorderLayout.CENTER);
+	
 	
 	//enlace para modificar contraseña
 	JLabel lblModificar = new JLabel();
@@ -81,7 +97,26 @@ public class PanelMensajes extends JPanel {
 			lblModificar.setText("Ir a modificar mi contraseña");		
 		}
 	});
-	add(lblModificar);
+	superior.add(lblModificar, BorderLayout.SOUTH);
+	
+	//Componentes formulario para enviar mensaje
+	JLabel lblDestino = new JLabel("Destinatario: ");
+	inferior.add(lblDestino);
+	txtDestino = new JTextField();
+	txtDestino.setColumns(30);
+	inferior.add(txtDestino);
+	
+	JLabel lblContenido = new JLabel("Contendio del mensaje: ");
+	inferior.add(lblContenido);
+	txtContenido = new JTextField();
+	txtContenido.setColumns(100);
+	inferior.add(txtContenido);
+	
+	JButton btnEnviar = new JButton("Enviar Mensaje");
+	btnEnviar.setActionCommand("enviar");
+	btnEnviar.addActionListener(accion);
+	inferior.add(btnEnviar);
+	
 
 	}
 	
