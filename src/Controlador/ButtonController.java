@@ -21,6 +21,7 @@ public class ButtonController implements ActionListener{
 	PanelModificar modificarFrame;
 	PanelMensajes mensajesFrame;
 	
+	
 	public ButtonController(Conector conex) {
 		super();
 		this.conector = conex;
@@ -107,10 +108,10 @@ public class ButtonController implements ActionListener{
 				u = ventana.getPanelCentral().getUsuario();
 				u.setPassword(newPass);
 				if(!conector.modificarUsuario(u)) {
-					JOptionPane.showMessageDialog(null, "Error al modificar la contraseña");
+					JOptionPane.showMessageDialog(null, "Error al modificar la contraseï¿½a");
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Has cambiado la contraseña");
+					JOptionPane.showMessageDialog(null, "Has cambiado la contraseï¿½a");
 
 				}
 			}
@@ -136,10 +137,15 @@ public class ButtonController implements ActionListener{
 			String btn = ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().getText();
 			u = ventana.getPanelCentral().getUsuario();
 			if(btn.equals("Ver Enviados")) {
+				//cambiamos la tabla 
+				ventana.getPanelCentral().getMensajesFrame().getSuperior().remove(ventana.getPanelCentral().getMensajesFrame().getTabla());
+				ventana.getPanelCentral().getMensajesFrame().getSuperior().add(ventana.getPanelCentral().getMensajesFrame().getTabla2());
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
 				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Recibidos");
 			}
 			else {
+				ventana.getPanelCentral().getMensajesFrame().getSuperior().remove(ventana.getPanelCentral().getMensajesFrame().getTabla2());
+				ventana.getPanelCentral().getMensajesFrame().getSuperior().add(ventana.getPanelCentral().getMensajesFrame().getTabla());
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
 				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Enviados");
 			}
@@ -170,7 +176,7 @@ public class ButtonController implements ActionListener{
 				}
 				else {
 					u = ventana.getPanelCentral().getUsuario();
-					JOptionPane.showMessageDialog(null, "Mensaje enviado con éxito");
+					JOptionPane.showMessageDialog(null, "Mensaje enviado con ï¿½xito");
 					ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
 					ventana.getPanelCentral().validate();
 					ventana.getPanelCentral().repaint();
@@ -180,23 +186,26 @@ public class ButtonController implements ActionListener{
 			break;
 			
 		case "borrar":
+			JOptionPane.showMessageDialog(null, "Accion borrar Mensaje");
 			if(ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().getText().equals("Ver Enviados")) {
 				JOptionPane.showMessageDialog(null, "No se pueden borrar los mensajes recibidos");
 			}
-			else {
+			else{
 				int id = ventana.getPanelCentral().getMensajesFrame().getId_mensaje();
-				if(!conector.existeMensaje(id)) {
+			
+				Mensaje mns = ventana.getPanelCentral().getUsuario().getEnviados().get(id);
+			
+				if(!conector.existeMensaje(mns.getCodigo())) {
 					JOptionPane.showMessageDialog(null, "El mensaje no existe");
 				}
 				else {
-					Mensaje mns = new Mensaje();
-					mns.setCodigo(id);
+				
 					if(!conector.borrarMensaje(mns)) {
 						JOptionPane.showMessageDialog(null, "Error al borrar el mensaje");
 					}
 					else {
 						u = ventana.getPanelCentral().getUsuario();
-						JOptionPane.showMessageDialog(null, "Mensaje borrado con éxito");
+						JOptionPane.showMessageDialog(null, "Mensaje borrado con exito");
 						ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
 						ventana.getPanelCentral().validate();
 						ventana.getPanelCentral().repaint();
@@ -238,4 +247,6 @@ public class ButtonController implements ActionListener{
 	public void setVentana(Ventana ventana) {
 		this.ventana = ventana;
 	}
+
+
 }
