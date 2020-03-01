@@ -1,10 +1,14 @@
 package Vista;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -48,6 +52,36 @@ public class PanelMensajes extends JPanel {
 
 	JScrollPane tabla = new JScrollPane(tablaMensajes);
 	add(tabla, BorderLayout.CENTER);
+	
+	//enlace para modificar contraseña
+	JLabel lblModificar = new JLabel();
+	lblModificar.setText("Ir a modificar mi contraseña");
+	lblModificar.setHorizontalAlignment(SwingConstants.CENTER);
+	lblModificar.setFont(new Font("Verdana", Font.HANGING_BASELINE, 14));
+	lblModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	
+	lblModificar.addMouseListener(new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			super.mouseClicked(e);
+			//aquí hay que intentar mandar la acción
+			JButton btn = new JButton();
+			btn.setActionCommand("modificar");
+			btn.addActionListener(accion);
+			btn.doClick();
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			super.mouseEntered(e);
+			lblModificar.setText("<html><a href=''>Ir a modificar mi contraseña</a></html>");
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			super.mouseExited(e);
+			lblModificar.setText("Ir a modificar mi contraseña");		
+		}
+	});
+	add(lblModificar);
 
 	}
 	

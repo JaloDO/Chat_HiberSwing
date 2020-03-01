@@ -73,6 +73,7 @@ public class PanelLogin extends JPanel{
 		btnResetLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(btnResetLogin);
 		
+		/*
 		//label simulando link para ir a registrar
 		JLabel lblSignUp = new JLabel();
 		lblSignUp.setText("Todavía no tengo cuenta");
@@ -102,6 +103,7 @@ public class PanelLogin extends JPanel{
 			}
 		});
 		add(lblSignUp);
+		*/
 	
 		//boton para ir a registrar por si no sale lo del link XD
 		JButton btnSignUp = new JButton();

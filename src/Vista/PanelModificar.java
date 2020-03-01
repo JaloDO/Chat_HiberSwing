@@ -48,7 +48,7 @@ public class PanelModificar extends JPanel{
 		
 		JButton btnModificar = new JButton();
 		btnModificar.setText("Modificar");
-		btnModificar.setActionCommand("modificar");
+		btnModificar.setActionCommand("modificarContrasena");
 		btnModificar.addActionListener(accion);
 		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(btnModificar);
@@ -60,6 +60,14 @@ public class PanelModificar extends JPanel{
 		lblMessage.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblMessage.setForeground(Color.RED);
 		add(lblMessage);
+		
+		
+		JButton btnVolverMensajes = new JButton();
+		btnVolverMensajes.setText("Volver");
+		btnVolverMensajes.setActionCommand("mensajes");
+		btnVolverMensajes.addActionListener(accion);
+		btnVolverMensajes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		add(btnVolverMensajes);
 		
 	}
 
