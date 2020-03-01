@@ -31,9 +31,13 @@ public class PanelMensajes extends JPanel {
 	private JTextField txtDestino, txtContenido;
 	private JButton btnCambiar;
 	private JLabel lblTitulo;
+
 	private ButtonController accion;
 	private JScrollPane tabla, tabla2;
 	private JPanel superior;
+
+	private int id_mensaje;
+
 	
 	public PanelMensajes (ButtonController accion) {
 	this.accion = accion;
@@ -234,6 +238,7 @@ public class PanelMensajes extends JPanel {
 		this.txtContenido = txtContenido;
 	}
 
+
 	public DefaultTableModel getModeloTabla() {
 		return modeloTabla;
 	}
@@ -274,6 +279,15 @@ public class PanelMensajes extends JPanel {
 		this.superior = superior;
 	}
 	
+
+	public int getId_mensaje() {
+		return id_mensaje;
+	}
+
+	public void setId_mensaje(int id_mensaje) {
+		this.id_mensaje = id_mensaje;
+	}
+
 	
 	
 }
