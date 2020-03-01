@@ -1,5 +1,7 @@
 package Controlador;
 
+import javax.swing.JOptionPane;
+
 import Modelo.Conector;
 
 import Vista.Ventana;
@@ -22,7 +24,8 @@ public class Principal {
 			acciones.setVentana(ventana);
 		}
 		else {
-			
+			JOptionPane.showMessageDialog(null, "Error al crear la conexión");
 		}
+		chat.cerrar();
 	}
 }

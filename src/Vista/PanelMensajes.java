@@ -71,7 +71,6 @@ public class PanelMensajes extends JPanel {
 		
 	//Tabla de mensajes
 	JTable tablaMensajes;
-	JTable tablaMensajes2;
 	//distintas tablas para mensajes enviados o recibidos
 	//Columnas
 	String[] columnas = {"Emisor","Destinatario","Contenido", "Fecha"};
@@ -86,6 +85,14 @@ public class PanelMensajes extends JPanel {
 	};
 	tablaMensajes =  new JTable(modeloTabla);
 	tablaMensajes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	tablaMensajes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			// TODO Auto-generated method stub
+			id_mensaje = tablaMensajes.getSelectedRow();
+		}
+	});
 	
 	tabla = new JScrollPane(tablaMensajes);
 	superior.add(tabla, BorderLayout.CENTER);
@@ -111,7 +118,7 @@ public class PanelMensajes extends JPanel {
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			super.mouseEntered(e);
-			lblModificar.setText("<html><a href=''>Ir a modificar mi contraseï¿½a</a></html>");
+			lblModificar.setText("<html><a href=''>Ir a modificar mi contraseña</a></html>");
 		}
 		@Override
 		public void mouseExited(MouseEvent e) {
