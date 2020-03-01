@@ -191,6 +191,7 @@ public class ButtonController implements ActionListener{
 			}
 			else{
 				Mensaje mns = ventana.getPanelCentral().getUsuario().getEnviados().get(id);
+				JOptionPane.showMessageDialog(null, "codigo del mensaje: "+mns.getCodigo());
 			
 				if(!conector.existeMensaje(mns.getCodigo())) {
 					JOptionPane.showMessageDialog(null, "El mensaje no existe");
