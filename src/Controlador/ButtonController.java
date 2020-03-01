@@ -138,16 +138,14 @@ public class ButtonController implements ActionListener{
 			u = ventana.getPanelCentral().getUsuario();
 			if(btn.equals("Ver Enviados")) {
 				//cambiamos la tabla 
-				ventana.getPanelCentral().getMensajesFrame().getSuperior().remove(ventana.getPanelCentral().getMensajesFrame().getTabla());
-				ventana.getPanelCentral().getMensajesFrame().getSuperior().add(ventana.getPanelCentral().getMensajesFrame().getTabla2());
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
 				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Recibidos");
+				ventana.getPanelCentral().getMensajesFrame().getBtnBorrar().setVisible(true);
 			}
 			else {
-				ventana.getPanelCentral().getMensajesFrame().getSuperior().remove(ventana.getPanelCentral().getMensajesFrame().getTabla2());
-				ventana.getPanelCentral().getMensajesFrame().getSuperior().add(ventana.getPanelCentral().getMensajesFrame().getTabla());
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
 				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Enviados");
+				ventana.getPanelCentral().getMensajesFrame().getBtnBorrar().setVisible(false);
 			}
 			ventana.getPanelCentral().validate();
 			ventana.getPanelCentral().repaint();
@@ -176,7 +174,7 @@ public class ButtonController implements ActionListener{
 				}
 				else {
 					u = ventana.getPanelCentral().getUsuario();
-					JOptionPane.showMessageDialog(null, "Mensaje enviado con �xito");
+					JOptionPane.showMessageDialog(null, "Mensaje enviado con exito");
 					ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
 					ventana.getPanelCentral().validate();
 					ventana.getPanelCentral().repaint();

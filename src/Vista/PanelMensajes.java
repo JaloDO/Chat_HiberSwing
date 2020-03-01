@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -28,19 +27,17 @@ import Modelo.Mensaje;
 
 public class PanelMensajes extends JPanel {
 	
-	private DefaultTableModel modeloTabla, modeloTabla2;
+	private DefaultTableModel modeloTabla;
 	private JTextField txtDestino, txtContenido;
-	private JButton btnCambiar;
+	private JButton btnCambiar, btnBorrar;
 	private JLabel lblTitulo;
 
-	private ButtonController accion;
-	private JScrollPane tabla, tabla2;
+	private JScrollPane tabla;
 	private JPanel superior;
 
 	private int id_mensaje;
 	
 	public PanelMensajes (ButtonController accion) {
-	this.accion = accion;
 	
 	this.setLayout(new GridLayout(0, 1));
 	
@@ -64,6 +61,12 @@ public class PanelMensajes extends JPanel {
 	btnCambiar.setActionCommand("cambiarMensajes");
 	btnCambiar.addActionListener(accion);
 	superior.add(btnCambiar, BorderLayout.WEST);
+	//boton borrar mensaje (solo enviados)
+	btnBorrar = new JButton("BORRAR");
+	btnBorrar.setActionCommand("borrar");
+	btnBorrar.addActionListener(accion);
+	btnBorrar.setVisible(false);
+	superior.add(btnBorrar, BorderLayout.EAST);
 	
 		
 	//Tabla de mensajes
@@ -84,30 +87,8 @@ public class PanelMensajes extends JPanel {
 	tablaMensajes =  new JTable(modeloTabla);
 	tablaMensajes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	
-	//modelo para enviados
-	//Columnas
-	String[] columnas2 = {"Emisor","Destinatario","Contenido", "Fecha",""};
-	//Celdas no editables
-	modeloTabla2 = new DefaultTableModel(columnas2, 0) {
-		public boolean isCellEditable(int row, int column)
-		{
-			return false;//This causes all cells to be not editable
-			}
-		};
-	tablaMensajes2 =  new JTable(modeloTabla2);
-	tablaMensajes2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	tablaMensajes2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-		
-		@Override
-		public void valueChanged(ListSelectionEvent e) {
-			// TODO Auto-generated method stub
-			id_mensaje = tablaMensajes2.getSelectedRow();
-		}
-	});
-
 	tabla = new JScrollPane(tablaMensajes);
 	superior.add(tabla, BorderLayout.CENTER);
-	tabla2 = new JScrollPane(tablaMensajes2);
 	
 	
 	//enlace para modificar contrase�a
@@ -165,52 +146,25 @@ public class PanelMensajes extends JPanel {
 	}
 	
 	public void actualizarTabla(List<Mensaje> mensajes) {
+		//Borramos los datos de la tabla
+		int filas = modeloTabla.getRowCount();
+			if(filas>0){
+				for(int i=filas-1;i>=0;i--){
+					modeloTabla.removeRow(i);
+				}
+			}
 		
-		if(this.getBtnCambiar().getText().equals("Ver Recibidos")) {
-			//Borramos los datos de la tabla
-			int filas = modeloTabla.getRowCount();
-				if(filas>0){
-					for(int i=filas-1;i>=0;i--){
-						modeloTabla.removeRow(i);
-					}
-				}
-			
-			//Rellenamos de nuevo la tabla				
-			for(int i=0;i<mensajes.size();i++){
-				Mensaje m = mensajes.get(i);
-				SimpleDateFormat formato = new SimpleDateFormat("dd-MMMM-yyyy");
-				String fecha = formato.format(m.getFecha());
-				Object[] fila = {m.getEmisor().getNombre(),
-								m.getReceptor().getNombre(),
-								m.getContenido(),
-								fecha};
-				modeloTabla.addRow(fila);
-			}
-		}else {
-			//Borramos los datos de la tabla
-			int filas = modeloTabla2.getRowCount();
-				if(filas>0){
-					for(int i=filas-1;i>=0;i--){
-						modeloTabla2.removeRow(i);
-					}
-				}
-			
-			//Rellenamos de nuevo la tabla				
-			for(int i=0;i<mensajes.size();i++){
-				Mensaje m = mensajes.get(i);
-				JButton btnBorrar = new JButton("Borrar");
-				btnBorrar.setActionCommand("borrar");
-				btnBorrar.addActionListener(accion);
-				SimpleDateFormat formato = new SimpleDateFormat("dd-MMMM-yyyy");
-				String fecha = formato.format(m.getFecha());
-				Object[] fila = {m.getEmisor().getNombre(),
-								m.getReceptor().getNombre(),
-								m.getContenido(),
-								fecha,
-								btnBorrar};
-				modeloTabla2.addRow(fila);
-			}
-		}		
+		//Rellenamos de nuevo la tabla				
+		for(int i=0;i<mensajes.size();i++){
+			Mensaje m = mensajes.get(i);
+			SimpleDateFormat formato = new SimpleDateFormat("dd-MMMM-yyyy");
+			String fecha = formato.format(m.getFecha());
+			Object[] fila = {m.getEmisor().getNombre(),
+							m.getReceptor().getNombre(),
+							m.getContenido(),
+							fecha};
+			modeloTabla.addRow(fila);
+		}
 	}
 
 	public JButton getBtnCambiar() {
@@ -246,28 +200,12 @@ public class PanelMensajes extends JPanel {
 		this.modeloTabla = modeloTabla;
 	}
 
-	public DefaultTableModel getModeloTabla2() {
-		return modeloTabla2;
-	}
-
-	public void setModeloTabla2(DefaultTableModel modeloTabla2) {
-		this.modeloTabla2 = modeloTabla2;
-	}
-
 	public JScrollPane getTabla() {
 		return tabla;
 	}
 
 	public void setTabla(JScrollPane tabla) {
 		this.tabla = tabla;
-	}
-
-	public JScrollPane getTabla2() {
-		return tabla2;
-	}
-
-	public void setTabla2(JScrollPane tabla2) {
-		this.tabla2 = tabla2;
 	}
 
 	public JPanel getSuperior() {
@@ -285,6 +223,14 @@ public class PanelMensajes extends JPanel {
 
 	public void setId_mensaje(int id_mensaje) {
 		this.id_mensaje = id_mensaje;
+	}
+
+	public JButton getBtnBorrar() {
+		return btnBorrar;
+	}
+
+	public void setBtnBorrar(JButton btnBorrar) {
+		this.btnBorrar = btnBorrar;
 	}
 
 	
