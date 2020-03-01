@@ -101,8 +101,7 @@ public class PanelMensajes extends JPanel {
 		@Override
 		public void valueChanged(ListSelectionEvent e) {
 			// TODO Auto-generated method stub
-			accion.setMensajeSeleccionado(accion.getU().getEnviados().get(tablaMensajes2.getSelectedRow()));
-			System.out.println(accion.getMensajeSeleccionado().getContenido());
+			id_mensaje = tablaMensajes2.getSelectedRow();
 		}
 	});
 
