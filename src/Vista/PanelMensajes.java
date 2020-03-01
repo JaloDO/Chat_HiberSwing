@@ -18,6 +18,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import Controlador.ButtonController;
@@ -62,7 +64,15 @@ public class PanelMensajes extends JPanel {
 
 	};
 	tablaMensajes =  new JTable(modeloTabla);
-	tablaMensajes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	
+	tablaMensajes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	tablaMensajes.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	});
 	
 
 	JScrollPane tabla = new JScrollPane(tablaMensajes);

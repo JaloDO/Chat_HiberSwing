@@ -3,6 +3,7 @@ package Controlador;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JOptionPane;
 
@@ -163,6 +164,7 @@ public class ButtonController implements ActionListener{
 				//rellenamos el objeto mensaje
 				m.setReceptor(receptor);
 				m.setContenido(ventana.getPanelCentral().getMensajesFrame().getTxtContenido().getText());
+				m.setFecha(new Date());
 				if(!conector.enviarMensaje(m)) {
 					JOptionPane.showMessageDialog(null, "Error al enviar el mensaje");
 				}

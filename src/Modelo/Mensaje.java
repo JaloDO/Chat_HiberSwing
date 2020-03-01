@@ -38,14 +38,15 @@ public class Mensaje {
 	
 	public Mensaje() {
 	}
-	
-	public Mensaje(int codigo, Usuario emisor, Usuario receptor, String contenido) {
+
+	public Mensaje(int codigo, Usuario emisor, Usuario receptor, String contenido, Date fecha) {
 		this.codigo = codigo;
 		this.emisor = emisor;
 		this.receptor = receptor;
 		this.contenido = contenido;
-		this.fecha = new Date();
+		this.fecha = fecha;
 	}
+
 
 	public int getCodigo() {
 		return codigo;
@@ -77,6 +78,10 @@ public class Mensaje {
 
 	public void setContenido(String contenido) {
 		this.contenido = contenido;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
 	public Date getFecha() {
