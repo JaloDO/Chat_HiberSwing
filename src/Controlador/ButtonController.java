@@ -43,14 +43,13 @@ public class ButtonController implements ActionListener{
 			u.setPassword(ventana.getPanelCentral().getLoginFrame().getTxtPass().getText());
 			u = conector.iniciarSesion(u);
 			if(u!=null) {
-				modificarFrame = new PanelModificar(this,u);
 				ventana.getPanelCentral().setUsuario(u);
 				//Quitar JPanel de login de PanelCentral
 				ventana.getPanelCentral().remove(ventana.getPanelCentral().getLoginFrame());
 				//Crear nuevo PanelMensajes y asignarlo a PanelCentral
 				mensajesFrame = new PanelMensajes(this);
 				ventana.getPanelCentral().setMensajesFrame(mensajesFrame);
-				ventana.getPanelCentral().add(mensajesFrame, "mensajes");
+				ventana.getPanelCentral().add(ventana.getPanelCentral().getMensajesFrame(), "mensajes");
 				//Actualizar tabla de mensajes
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
 				
@@ -121,8 +120,10 @@ public class ButtonController implements ActionListener{
 			break;
 			
 		case "modificar":
-			ventana.getPanelCentral().remove(mensajesFrame);
-			ventana.getPanelCentral().add(modificarFrame);
+			modificarFrame = new PanelModificar(this, ventana.getPanelCentral().getUsuario());
+			ventana.getPanelCentral().setModificarFrame(modificarFrame);
+			ventana.getPanelCentral().remove(ventana.getPanelCentral().getMensajesFrame());
+			ventana.getPanelCentral().add(ventana.getPanelCentral().getModificarFrame());
 			break;
 		}
 		

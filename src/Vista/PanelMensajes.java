@@ -53,6 +53,8 @@ public class PanelMensajes extends JPanel {
 	JScrollPane tabla = new JScrollPane(tablaMensajes);
 	add(tabla, BorderLayout.CENTER);
 	
+	
+	
 	//enlace para modificar contraseña
 	JLabel lblModificar = new JLabel();
 	lblModificar.setText("Ir a modificar mi contraseña");
@@ -82,7 +84,7 @@ public class PanelMensajes extends JPanel {
 		}
 	});
 	add(lblModificar);
-
+	
 	}
 	
 	public void actualizarTabla(List<Mensaje> mensajes) {

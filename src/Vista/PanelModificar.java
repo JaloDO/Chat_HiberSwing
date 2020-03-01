@@ -1,5 +1,6 @@
 package Vista;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -19,6 +20,8 @@ public class PanelModificar extends JPanel{
 	JLabel lblMessage, lblName;
 	
 	public PanelModificar(ButtonController accion, Usuario user) {
+		
+		
 		
 		lblName = new JLabel(user.getNombre());
 		lblName.setFont(new Font("Verdana", Font.PLAIN, 30));
@@ -102,4 +105,5 @@ public class PanelModificar extends JPanel{
 	public void setLblName(JLabel lblName) {
 		this.lblName = lblName;
 	}
+	
 }
