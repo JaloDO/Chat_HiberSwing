@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import Modelo.Conector;
+import Modelo.Mensaje;
 import Modelo.Usuario;
 import Vista.PanelMensajes;
 import Vista.PanelModificar;
@@ -129,10 +130,51 @@ public class ButtonController implements ActionListener{
 			ventana.getPanelCentral().validate();
 			ventana.getPanelCentral().repaint();
 			break;
+			
+		case "cambiarMensajes":
+			String btn = ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().getText();
+			u = ventana.getPanelCentral().getUsuario();
+			if(btn.equals("Ver Enviados")) {
+				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
+				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Recibidos");
+			}
+			else {
+				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
+				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Enviados");
+			}
+			ventana.getPanelCentral().validate();
+			ventana.getPanelCentral().repaint();
+			break;
+			
+		case "enviarMensaje":
+			//obtenemos el emisor
+			Usuario emisor = ventana.getPanelCentral().getUsuario();
+			//creamos el mensaje
+			Mensaje m = new Mensaje();
+			m.setEmisor(emisor);
+			//obtenemos el receptor
+			Usuario receptor = new Usuario();
+			receptor.setNombre(ventana.getPanelCentral().getMensajesFrame().getTxtDestino().getText());
+			receptor = conector.obtenerUsuario(receptor);
+			if(receptor==null) {
+				JOptionPane.showMessageDialog(null, "Error, el destinatario no existe");
+			}
+			else {
+				//rellenamos el objeto mensaje
+				m.setReceptor(receptor);
+				m.setContenido(ventana.getPanelCentral().getMensajesFrame().getTxtContenido().getText());
+				if(!conector.enviarMensaje(m)) {
+					JOptionPane.showMessageDialog(null, "Error al enviar el mensaje");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Mensaje enviado con éxito");
+					ventana.getPanelCentral().validate();
+					ventana.getPanelCentral().repaint();
+				}
+			}
+			resetMensaje();
+			break;
 		}
-		
-		
-		
 	}
 	
 	//encapsulacion metodo limpiar login
@@ -144,6 +186,11 @@ public class ButtonController implements ActionListener{
 	public void resetModificar() {
 		modificarFrame.getTxtPass().setText("");
 		modificarFrame.getTxtPass2().setText("");
+	}
+	
+	public void resetMensaje() {
+		ventana.getPanelCentral().getMensajesFrame().getTxtDestino().setText("");
+		ventana.getPanelCentral().getMensajesFrame().getTxtContenido().setText("");
 	}
 
 	public Conector getConector() {

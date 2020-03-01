@@ -27,7 +27,7 @@ public class PanelMensajes extends JPanel {
 	
 	private DefaultTableModel modeloTabla;
 	private JTextField txtDestino, txtContenido;
-	private JButton btnEnviar;
+	private JButton btnEnviar, btnCambiar;
 	private JLabel lblTitulo;
 	
 	public PanelMensajes (ButtonController accion) {
@@ -99,6 +99,12 @@ public class PanelMensajes extends JPanel {
 	});
 	superior.add(lblModificar, BorderLayout.SOUTH);
 	
+	//boton cambiar recibidos por enviados y viceversa
+	btnCambiar = new JButton("Ver Enviados");
+	btnCambiar.setActionCommand("cambiarMensajes");
+	btnCambiar.addActionListener(accion);
+	superior.add(btnCambiar, BorderLayout.WEST);
+	
 	//Componentes formulario para enviar mensaje
 	JLabel lblDestino = new JLabel("Destinatario: ");
 	inferior.add(lblDestino);
@@ -112,8 +118,9 @@ public class PanelMensajes extends JPanel {
 	txtContenido.setColumns(100);
 	inferior.add(txtContenido);
 	
+	//boton enviar mensaje
 	JButton btnEnviar = new JButton("Enviar Mensaje");
-	btnEnviar.setActionCommand("enviar");
+	btnEnviar.setActionCommand("enviarMensaje");
 	btnEnviar.addActionListener(accion);
 	inferior.add(btnEnviar);
 	
@@ -144,4 +151,27 @@ public class PanelMensajes extends JPanel {
 				
 	}
 
+	public JButton getBtnCambiar() {
+		return btnCambiar;
+	}
+
+	public void setBtnCambiar(JButton btnCambiar) {
+		this.btnCambiar = btnCambiar;
+	}
+
+	public JTextField getTxtDestino() {
+		return txtDestino;
+	}
+
+	public void setTxtDestino(JTextField txtDestino) {
+		this.txtDestino = txtDestino;
+	}
+
+	public JTextField getTxtContenido() {
+		return txtContenido;
+	}
+
+	public void setTxtContenido(JTextField txtContenido) {
+		this.txtContenido = txtContenido;
+	}
 }
