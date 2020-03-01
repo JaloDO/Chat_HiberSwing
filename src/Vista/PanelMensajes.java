@@ -2,7 +2,9 @@ package Vista;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -29,15 +31,24 @@ public class PanelMensajes extends JPanel {
 	
 	public PanelMensajes (ButtonController accion) {
 		
-	this.setLayout(new BorderLayout(0,0));
-		
+	this.setLayout(new GridLayout(0, 1));
+	
+	//Añadir dos subpaneles
+	JPanel superior = new JPanel();
+	superior.setLayout(new BorderLayout(0, 0));
+	this.add(superior);
+	JPanel inferior = new JPanel();
+	inferior.setLayout(new FlowLayout());
+	this.add(inferior);
+	
+	
 	JLabel titulo = new JLabel("MENSAJES");
 	titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
 	titulo.setHorizontalAlignment(SwingConstants.CENTER);
-	this.add(titulo, BorderLayout.NORTH);
-
+	superior.add(titulo, BorderLayout.NORTH);
+	
+	//Tabla de mensajes
 	JTable tablaMensajes;		
-		
 	
 	//Columnas
 	String[] columnas = {"Emisor","Destinatario","Contenido", "Fecha"};
@@ -54,15 +65,7 @@ public class PanelMensajes extends JPanel {
 	
 
 	JScrollPane tabla = new JScrollPane(tablaMensajes);
-	add(tabla, BorderLayout.CENTER);
-	
-
-	JLabel lblDestino = new JLabel("Destinatario: ");
-	this.add(lblDestino);
-	txtDestino = new JTextField();
-	this.add(txtDestino);
-	
-
+	superior.add(tabla, BorderLayout.CENTER);
 	
 	
 	//enlace para modificar contraseña
@@ -93,7 +96,20 @@ public class PanelMensajes extends JPanel {
 			lblModificar.setText("Ir a modificar mi contraseña");		
 		}
 	});
-	add(lblModificar);
+	superior.add(lblModificar, BorderLayout.SOUTH);
+	
+	//Componentes formulario para enviar mensaje
+	JLabel lblDestino = new JLabel("Destinatario: ");
+	inferior.add(lblDestino);
+	txtDestino = new JTextField();
+	txtDestino.setColumns(50);
+	inferior.add(txtDestino);
+	
+	JLabel lblContenido = new JLabel("Contendio del mensaje: ");
+	inferior.add(lblContenido);
+	txtContenido = new JTextField();
+	txtContenido.setColumns(100);
+	inferior.add(txtContenido);
 	
 
 	}
