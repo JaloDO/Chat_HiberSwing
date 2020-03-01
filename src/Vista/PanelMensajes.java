@@ -5,10 +5,12 @@ import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +21,8 @@ import Modelo.Mensaje;
 public class PanelMensajes extends JPanel {
 	
 	private DefaultTableModel modeloTabla;
+	private JTextField txtDestino, txtContenido;
+	private JButton btnEnviar;
 	
 	public PanelMensajes (ButtonController accion) {
 		
@@ -48,6 +52,12 @@ public class PanelMensajes extends JPanel {
 
 	JScrollPane tabla = new JScrollPane(tablaMensajes);
 	add(tabla, BorderLayout.CENTER);
+	
+	JLabel lblDestino = new JLabel("Destinatario: ");
+	this.add(lblDestino);
+	txtDestino = new JTextField();
+	this.add(txtDestino);
+	
 
 	}
 	

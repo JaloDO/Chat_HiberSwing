@@ -55,7 +55,7 @@ public class ButtonController implements ActionListener{
 				
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Datos de inicio de sesiï¿½n incorrectos");
+				JOptionPane.showMessageDialog(null, "Datos de inicio de sesion incorrectos");
 			}
 			resetLogin();
 			break;
@@ -72,7 +72,7 @@ public class ButtonController implements ActionListener{
 			u.setPassword(ventana.getPanelCentral().getLoginFrame().getTxtPass().getText());
 			
 			if(u.getPassword().equals("") || u.getNombre().equals("")) {
-				JOptionPane.showMessageDialog(null, "No puede haber campos vacï¿½os");
+				JOptionPane.showMessageDialog(null, "No puede haber campos vacios");
 			}
 			else if(!conector.existeUsername(u)) {
 				if(conector.registrarUsuario(u)) {
@@ -104,10 +104,10 @@ public class ButtonController implements ActionListener{
 				u.setNombre(modificarFrame.getLblName().getText());
 				u.setPassword(newPass);
 				if(!conector.modificarUsuario(u)) {
-					JOptionPane.showMessageDialog(null, "Error al modificar la contraseï¿½a");
+					JOptionPane.showMessageDialog(null, "Error al modificar la contraseña");
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Has cambiado la contraseï¿½a");
+					JOptionPane.showMessageDialog(null, "Has cambiado la contraseña");
 					
 				}
 			}
