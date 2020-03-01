@@ -50,6 +50,8 @@ public class ButtonController implements ActionListener{
 				mensajesFrame = new PanelMensajes(this);
 				ventana.getPanelCentral().setMensajesFrame(mensajesFrame);
 				ventana.getPanelCentral().add(ventana.getPanelCentral().getMensajesFrame(), "mensajes");
+				ventana.getPanelCentral().validate();
+				ventana.getPanelCentral().repaint();
 				//Actualizar tabla de mensajes
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
 				
@@ -125,6 +127,8 @@ public class ButtonController implements ActionListener{
 			ventana.getPanelCentral().setModificarFrame(modificarFrame);
 			ventana.getPanelCentral().remove(ventana.getPanelCentral().getMensajesFrame());
 			ventana.getPanelCentral().add(ventana.getPanelCentral().getModificarFrame());
+			ventana.getPanelCentral().validate();
+			ventana.getPanelCentral().repaint();
 			break;
 		}
 		

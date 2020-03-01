@@ -28,6 +28,7 @@ public class PanelMensajes extends JPanel {
 	private DefaultTableModel modeloTabla;
 	private JTextField txtDestino, txtContenido;
 	private JButton btnEnviar;
+	private JLabel lblTitulo;
 	
 	public PanelMensajes (ButtonController accion) {
 		
@@ -42,10 +43,10 @@ public class PanelMensajes extends JPanel {
 	this.add(inferior);
 	
 	
-	JLabel titulo = new JLabel("MENSAJES");
-	titulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
-	titulo.setHorizontalAlignment(SwingConstants.CENTER);
-	superior.add(titulo, BorderLayout.NORTH);
+	lblTitulo = new JLabel("MENSAJES");
+	lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 18));
+	lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
+	superior.add(lblTitulo, BorderLayout.NORTH);
 	
 	//Tabla de mensajes
 	JTable tablaMensajes;		
@@ -102,7 +103,7 @@ public class PanelMensajes extends JPanel {
 	JLabel lblDestino = new JLabel("Destinatario: ");
 	inferior.add(lblDestino);
 	txtDestino = new JTextField();
-	txtDestino.setColumns(50);
+	txtDestino.setColumns(30);
 	inferior.add(txtDestino);
 	
 	JLabel lblContenido = new JLabel("Contendio del mensaje: ");
@@ -110,6 +111,11 @@ public class PanelMensajes extends JPanel {
 	txtContenido = new JTextField();
 	txtContenido.setColumns(100);
 	inferior.add(txtContenido);
+	
+	JButton btnEnviar = new JButton("Enviar Mensaje");
+	btnEnviar.setActionCommand("enviar");
+	btnEnviar.addActionListener(accion);
+	inferior.add(btnEnviar);
 	
 
 	}
