@@ -155,7 +155,7 @@ public class ButtonController implements ActionListener{
 			//obtenemos el receptor
 			Usuario receptor = new Usuario();
 			receptor.setNombre(ventana.getPanelCentral().getMensajesFrame().getTxtDestino().getText());
-			receptor = conector.obtenerUsuario(receptor);
+			receptor = conector.obtenerDestinatario(receptor);
 			if(receptor==null) {
 				JOptionPane.showMessageDialog(null, "Error, el destinatario no existe");
 			}
