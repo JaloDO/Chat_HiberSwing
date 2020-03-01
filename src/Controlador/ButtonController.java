@@ -20,6 +20,8 @@ public class ButtonController implements ActionListener{
 	Ventana ventana;
 	PanelModificar modificarFrame;
 	PanelMensajes mensajesFrame;
+	Mensaje mensajeSeleccionado;
+	Usuario u;
 	
 	public ButtonController(Conector conex) {
 		super();
@@ -34,7 +36,7 @@ public class ButtonController implements ActionListener{
 		//obtenemos el layout actual (la parte central, que es la que modificaremos)
 		CardLayout layout = (CardLayout) ventana.getPanelCentral().getLayout();
 		
-		Usuario u;
+		//Usuario u;
 		
 		switch(accion) {
 		
@@ -219,7 +221,21 @@ public class ButtonController implements ActionListener{
 	public void setVentana(Ventana ventana) {
 		this.ventana = ventana;
 	}
-	
-	
+
+	public Mensaje getMensajeSeleccionado() {
+		return mensajeSeleccionado;
+	}
+
+	public void setMensajeSeleccionado(Mensaje mensajeSeleccionado) {
+		this.mensajeSeleccionado = mensajeSeleccionado;
+	}
+
+	public Usuario getU() {
+		return u;
+	}
+
+	public void setU(Usuario u) {
+		this.u = u;
+	}
 
 }
