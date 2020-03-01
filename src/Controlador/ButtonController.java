@@ -17,6 +17,7 @@ public class ButtonController implements ActionListener{
 	Conector conector;
 	Ventana ventana;
 	PanelModificar modificarFrame;
+	PanelMensajes mensajesFrame;
 	
 	public ButtonController(Conector conex) {
 		super();
@@ -42,12 +43,11 @@ public class ButtonController implements ActionListener{
 			u.setPassword(ventana.getPanelCentral().getLoginFrame().getTxtPass().getText());
 			u = conector.iniciarSesion(u);
 			if(u!=null) {
-				modificarFrame = new PanelModificar(this,u);
 				ventana.getPanelCentral().setUsuario(u);
 				//Quitar JPanel de login de PanelCentral
 				ventana.getPanelCentral().remove(ventana.getPanelCentral().getLoginFrame());
 				//Crear nuevo PanelMensajes y asignarlo a PanelCentral
-				PanelMensajes mensajesFrame = new PanelMensajes(this);
+				mensajesFrame = new PanelMensajes(this);
 				ventana.getPanelCentral().setMensajesFrame(mensajesFrame);
 				ventana.getPanelCentral().add(ventana.getPanelCentral().getMensajesFrame(), "mensajes");
 				//Actualizar tabla de mensajes
@@ -72,17 +72,17 @@ public class ButtonController implements ActionListener{
 			u.setPassword(ventana.getPanelCentral().getLoginFrame().getTxtPass().getText());
 			
 			if(u.getPassword().equals("") || u.getNombre().equals("")) {
+
 				JOptionPane.showMessageDialog(null, "No puede haber campos vacios");
+
 			}
 			else if(!conector.existeUsername(u)) {
 				if(conector.registrarUsuario(u)) {
 					JOptionPane.showMessageDialog(null, "Usuario registrado con exito");
-					resetLogin();
 					
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Error al registrar usuario");
-					resetLogin();
 				}
 			} 
 			else {
@@ -91,7 +91,7 @@ public class ButtonController implements ActionListener{
 			resetLogin();
 			break;
 			
-		case "modificar":
+		case "modificarContrasena":
 			modificarFrame.getLblMessage().setText("Accion Modificar");
 			String newPass = modificarFrame.getTxtPass().getText();
 			String newPass2 = modificarFrame.getTxtPass2().getText();
@@ -108,13 +108,27 @@ public class ButtonController implements ActionListener{
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Has cambiado la contraseña");
-					
+
 				}
 			}
 			resetModificar();
 			
 			break;
+			
+		case "mensajes":
+			ventana.getPanelCentral().remove(modificarFrame);
+			ventana.getPanelCentral().add(mensajesFrame, "mensajes");
+			break;
+			
+		case "modificar":
+			modificarFrame = new PanelModificar(this, ventana.getPanelCentral().getUsuario());
+			ventana.getPanelCentral().setModificarFrame(modificarFrame);
+			ventana.getPanelCentral().remove(ventana.getPanelCentral().getMensajesFrame());
+			ventana.getPanelCentral().add(ventana.getPanelCentral().getModificarFrame());
+			break;
 		}
+		
+		
 		
 	}
 	

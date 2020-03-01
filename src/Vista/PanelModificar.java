@@ -1,5 +1,6 @@
 package Vista;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -19,6 +20,8 @@ public class PanelModificar extends JPanel{
 	JLabel lblMessage, lblName;
 	
 	public PanelModificar(ButtonController accion, Usuario user) {
+		
+		
 		
 		lblName = new JLabel(user.getNombre());
 		lblName.setFont(new Font("Verdana", Font.PLAIN, 30));
@@ -48,7 +51,7 @@ public class PanelModificar extends JPanel{
 		
 		JButton btnModificar = new JButton();
 		btnModificar.setText("Modificar");
-		btnModificar.setActionCommand("modificar");
+		btnModificar.setActionCommand("modificarContrasena");
 		btnModificar.addActionListener(accion);
 		btnModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		add(btnModificar);
@@ -60,6 +63,14 @@ public class PanelModificar extends JPanel{
 		lblMessage.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblMessage.setForeground(Color.RED);
 		add(lblMessage);
+		
+		
+		JButton btnVolverMensajes = new JButton();
+		btnVolverMensajes.setText("Volver");
+		btnVolverMensajes.setActionCommand("mensajes");
+		btnVolverMensajes.addActionListener(accion);
+		btnVolverMensajes.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		add(btnVolverMensajes);
 		
 	}
 
@@ -94,4 +105,5 @@ public class PanelModificar extends JPanel{
 	public void setLblName(JLabel lblName) {
 		this.lblName = lblName;
 	}
+	
 }
