@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -32,6 +33,7 @@ public class PanelMensajes extends JPanel {
 	private JButton btnEnviar, btnCambiar;
 	private JLabel lblTitulo;
 	private int id_mensaje;
+	private List<Integer>lista_id;
 	
 	public PanelMensajes (ButtonController accion) {
 		
@@ -148,9 +150,11 @@ public class PanelMensajes extends JPanel {
 				}
 			}
 		
-		//Rellenamos de nuevo la tabla				
+		//Rellenamos de nuevo la tabla	
+			lista_id = new ArrayList<Integer>(); //se instancia la lista de ids de mensajes
 		for(int i=0;i<mensajes.size();i++){
 			Mensaje m = mensajes.get(i);
+			lista_id.add(m.getCodigo()); //se rellena la lista con los ids de los mensajes
 			SimpleDateFormat formato = new SimpleDateFormat("dd-MMMM-yyyy");
 			String fecha = formato.format(m.getFecha());
 			Object[] fila = {m.getEmisor().getNombre(),

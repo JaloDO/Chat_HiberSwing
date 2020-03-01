@@ -169,7 +169,9 @@ public class ButtonController implements ActionListener{
 					JOptionPane.showMessageDialog(null, "Error al enviar el mensaje");
 				}
 				else {
+					u = ventana.getPanelCentral().getUsuario();
 					JOptionPane.showMessageDialog(null, "Mensaje enviado con éxito");
+					ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
 					ventana.getPanelCentral().validate();
 					ventana.getPanelCentral().repaint();
 				}
