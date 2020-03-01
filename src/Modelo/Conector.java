@@ -211,7 +211,7 @@ public class Conector {
 		boolean resultado = false;
 		
 		try {
-			Query consulta = em.createQuery("from Usuario where id = :id");
+			Query consulta = em.createQuery("from Mensaje where id = :id");
 			consulta.setParameter("id", id);
 			List<Usuario> r = consulta.getResultList();
 			if(!r.isEmpty()) {
