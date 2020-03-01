@@ -31,6 +31,7 @@ public class PanelMensajes extends JPanel {
 	private JTextField txtDestino, txtContenido;
 	private JButton btnEnviar, btnCambiar;
 	private JLabel lblTitulo;
+	private int id_mensaje;
 	
 	public PanelMensajes (ButtonController accion) {
 		
@@ -184,4 +185,14 @@ public class PanelMensajes extends JPanel {
 	public void setTxtContenido(JTextField txtContenido) {
 		this.txtContenido = txtContenido;
 	}
+
+	public int getId_mensaje() {
+		return id_mensaje;
+	}
+
+	public void setId_mensaje(int id_mensaje) {
+		this.id_mensaje = id_mensaje;
+	}
+	
+	
 }

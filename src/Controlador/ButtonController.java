@@ -176,6 +176,26 @@ public class ButtonController implements ActionListener{
 			}
 			resetMensaje();
 			break;
+			
+		case "borrar":
+			int id = ventana.getPanelCentral().getMensajesFrame().getId_mensaje();
+			if(!conector.existeMensaje(id)) {
+				JOptionPane.showMessageDialog(null, "El mensaje no existe");
+			}
+			else {
+				Mensaje mns = new Mensaje();
+				mns.setCodigo(id);
+				if(!conector.borrarMensaje(mns)) {
+					JOptionPane.showMessageDialog(null, "Error al borrar el mensaje");
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Mensaje borrado con éxito");
+					ventana.getPanelCentral().validate();
+					ventana.getPanelCentral().repaint();
+				}
+			}
+			
+			break;
 		}
 	}
 	
@@ -210,7 +230,4 @@ public class ButtonController implements ActionListener{
 	public void setVentana(Ventana ventana) {
 		this.ventana = ventana;
 	}
-	
-	
-
 }

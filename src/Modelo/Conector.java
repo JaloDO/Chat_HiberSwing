@@ -207,5 +207,23 @@ public class Conector {
 		return resultado;
 	}
 	
+	public boolean existeMensaje(int id) {
+		boolean resultado = false;
+		
+		try {
+			Query consulta = em.createQuery("from Usuario where id = :id");
+			consulta.setParameter("id", id);
+			List<Usuario> r = consulta.getResultList();
+			if(!r.isEmpty()) {
+				resultado=true;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return resultado;
+	}
+	
 	
 }
