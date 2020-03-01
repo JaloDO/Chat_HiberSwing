@@ -40,7 +40,7 @@ public class ButtonController implements ActionListener{
 		switch(accion) {
 		
 		case "login":
-			ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION LOGIN");
+			//ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION LOGIN");
 			u = new Usuario();
 			u.setNombre(ventana.getPanelCentral().getLoginFrame().getTxtName().getText());
 			u.setPassword(ventana.getPanelCentral().getLoginFrame().getTxtPass().getText());
@@ -67,11 +67,11 @@ public class ButtonController implements ActionListener{
 			
 		case "resetLogin":
 			resetLogin();
-			ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION RESET FUNCIONA");
+			//ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION RESET FUNCIONA");
 			break;
 			
 		case "crearCuenta":
-			ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION CREAR");
+			//ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION CREAR");
 			u = new Usuario();
 			u.setNombre(ventana.getPanelCentral().getLoginFrame().getTxtName().getText());
 			u.setPassword(ventana.getPanelCentral().getLoginFrame().getTxtPass().getText());
@@ -136,6 +136,7 @@ public class ButtonController implements ActionListener{
 		case "cambiarMensajes":
 			String btn = ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().getText();
 			u = ventana.getPanelCentral().getUsuario();
+			u = conector.obtenerUsuario(u);
 			if(btn.equals("Ver Enviados")) {
 				//cambiamos la tabla 
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
@@ -174,6 +175,7 @@ public class ButtonController implements ActionListener{
 				}
 				else {
 					u = ventana.getPanelCentral().getUsuario();
+					u = conector.obtenerUsuario(u);
 					JOptionPane.showMessageDialog(null, "Mensaje enviado con exito");
 					ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
 					ventana.getPanelCentral().validate();
@@ -203,6 +205,7 @@ public class ButtonController implements ActionListener{
 					}
 					else {
 						u = ventana.getPanelCentral().getUsuario();
+						u = conector.obtenerUsuario(u);
 						JOptionPane.showMessageDialog(null, "Mensaje borrado con exito");
 						ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
 						ventana.getPanelCentral().validate();
@@ -210,6 +213,12 @@ public class ButtonController implements ActionListener{
 					}
 				}
 			}
+			break;
+			
+		case "cerrarSesion":
+			u = null;
+			ventana.getPanelCentral().remove(ventana.getPanelCentral().getMensajesFrame());
+			ventana.getPanelCentral().add(ventana.getPanelCentral().getLoginFrame());
 			break;
 		}
 	}

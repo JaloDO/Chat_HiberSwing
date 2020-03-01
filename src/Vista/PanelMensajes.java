@@ -149,6 +149,12 @@ public class PanelMensajes extends JPanel {
 	btnEnviar.addActionListener(accion);
 	inferior.add(btnEnviar);
 	
+	//boton cerrar sesion
+	JButton btnCerrar = new JButton("Cerrar Sesión");
+	btnCerrar.setActionCommand("cerrarSesion");
+	btnCerrar.addActionListener(accion);
+	inferior.add(btnCerrar, BorderLayout.SOUTH);
+	
 
 	}
 	
