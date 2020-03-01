@@ -184,13 +184,12 @@ public class ButtonController implements ActionListener{
 			break;
 			
 		case "borrar":
-			JOptionPane.showMessageDialog(null, "Accion borrar Mensaje");
+			int id = ventana.getPanelCentral().getMensajesFrame().getId_mensaje();
+			JOptionPane.showMessageDialog(null, "Accion borrar Mensaje, ID del mensaje: "+id);
 			if(ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().getText().equals("Ver Enviados")) {
 				JOptionPane.showMessageDialog(null, "No se pueden borrar los mensajes recibidos");
 			}
 			else{
-				int id = ventana.getPanelCentral().getMensajesFrame().getId_mensaje();
-			
 				Mensaje mns = ventana.getPanelCentral().getUsuario().getEnviados().get(id);
 			
 				if(!conector.existeMensaje(mns.getCodigo())) {
