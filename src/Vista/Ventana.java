@@ -25,7 +25,7 @@ public class Ventana extends JFrame{
 		super();
 		this.setTitle("Main");
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		//creacion jpanel y border layout
 		JPanel container = new JPanel();
 		container.setLayout(new BorderLayout());

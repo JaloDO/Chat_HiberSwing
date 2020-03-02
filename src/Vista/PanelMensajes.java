@@ -97,6 +97,10 @@ public class PanelMensajes extends JPanel {
 				}
 			}
 		});
+		//Ocultar columna Id
+		tablaMensajes.getColumn("Id").setWidth(0);
+		tablaMensajes.getColumn("Id").setMinWidth(0);
+		tablaMensajes.getColumn("Id").setMaxWidth(0);
 		
 		tabla = new JScrollPane(tablaMensajes);
 		superior.add(tabla, BorderLayout.CENTER);
