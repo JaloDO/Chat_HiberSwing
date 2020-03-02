@@ -100,7 +100,7 @@ public class PanelMensajes extends JPanel {
 	
 	//enlace para modificar contraseï¿½a
 	JLabel lblModificar = new JLabel();
-	lblModificar.setText("Ir a modificar mi contraseÃ±a");
+	lblModificar.setText("Ir a modificar mi contraseña");
 	lblModificar.setHorizontalAlignment(SwingConstants.CENTER);
 	lblModificar.setFont(new Font("Verdana", Font.HANGING_BASELINE, 14));
 	lblModificar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -123,7 +123,7 @@ public class PanelMensajes extends JPanel {
 		@Override
 		public void mouseExited(MouseEvent e) {
 			super.mouseExited(e);
-			lblModificar.setText("Ir a modificar mi contraseï¿½a");		
+			lblModificar.setText("Ir a modificar mi contraseña");		
 		}
 	});
 	superior.add(lblModificar, BorderLayout.SOUTH);

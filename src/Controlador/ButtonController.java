@@ -67,11 +67,9 @@ public class ButtonController implements ActionListener{
 			
 		case "resetLogin":
 			resetLogin();
-			//ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION RESET FUNCIONA");
 			break;
 			
 		case "crearCuenta":
-			//ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION CREAR");
 			u = new Usuario();
 			u.setNombre(ventana.getPanelCentral().getLoginFrame().getTxtName().getText());
 			u.setPassword(ventana.getPanelCentral().getLoginFrame().getTxtPass().getText());
@@ -97,24 +95,29 @@ public class ButtonController implements ActionListener{
 			break;
 			
 		case "modificarContrasena":
-			modificarFrame.getLblMessage().setText("Accion Modificar");
 			String newPass = modificarFrame.getTxtPass().getText();
 			String newPass2 = modificarFrame.getTxtPass2().getText();
 			//comprobar 2 campos iguales
-			if(!newPass.equals(newPass2)){
-				JOptionPane.showMessageDialog(null, "Los campos no coinciden");
+			if(newPass.equals("") || newPass2.equals("")) {
+				JOptionPane.showMessageDialog(null, "Error, No puede haber campos vacios");
 			}
 			else {
-				u = ventana.getPanelCentral().getUsuario();
-				u.setPassword(newPass);
-				if(!conector.modificarUsuario(u)) {
-					JOptionPane.showMessageDialog(null, "Error al modificar la contraseï¿½a");
+				if(!newPass.equals(newPass2)){
+					JOptionPane.showMessageDialog(null, "Los campos no coinciden");
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Has cambiado la contraseï¿½a");
+					u = ventana.getPanelCentral().getUsuario();
+					u.setPassword(newPass);
+					if(!conector.modificarUsuario(u)) {
+						JOptionPane.showMessageDialog(null, "Error al modificar la contraseña");
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Has cambiado la contraseña");
 
+					}
 				}
 			}
+			
 			resetModificar();
 			
 			break;
@@ -187,7 +190,7 @@ public class ButtonController implements ActionListener{
 			
 		case "borrar":
 			int id = ventana.getPanelCentral().getMensajesFrame().getId_mensaje();
-			JOptionPane.showMessageDialog(null, "Accion borrar Mensaje, ID del mensaje: "+id);
+			JOptionPane.showMessageDialog(null, "Accion borrar Mensaje, indice de la tabla: "+id);
 			if(ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().getText().equals("Ver Enviados")) {
 				JOptionPane.showMessageDialog(null, "No se pueden borrar los mensajes recibidos");
 			}
