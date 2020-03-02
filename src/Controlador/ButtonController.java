@@ -57,6 +57,7 @@ public class ButtonController implements ActionListener{
 				ventana.getPanelCentral().repaint();
 				//Actualizar tabla de mensajes
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
+				ventana.getTitulo().setText("EASY CHAT - MENSAJES RECIBIDOS");
 				
 			}
 			else {
@@ -125,6 +126,7 @@ public class ButtonController implements ActionListener{
 		case "mensajes":
 			ventana.getPanelCentral().remove(modificarFrame);
 			ventana.getPanelCentral().add(mensajesFrame, "mensajes");
+			ventana.getTitulo().setText("EASY CHAT - MENSAJES RECIBIDOS");
 			break;
 			
 		case "modificar":
@@ -132,6 +134,7 @@ public class ButtonController implements ActionListener{
 			ventana.getPanelCentral().setModificarFrame(modificarFrame);
 			ventana.getPanelCentral().remove(ventana.getPanelCentral().getMensajesFrame());
 			ventana.getPanelCentral().add(ventana.getPanelCentral().getModificarFrame());
+			ventana.getTitulo().setText("EASY CHAT - MODIFICAR");
 			ventana.getPanelCentral().validate();
 			ventana.getPanelCentral().repaint();
 			break;
@@ -145,11 +148,13 @@ public class ButtonController implements ActionListener{
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
 				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Recibidos");
 				ventana.getPanelCentral().getMensajesFrame().getBtnBorrar().setVisible(true);
+				ventana.getTitulo().setText("EASY CHAT - MENSAJES ENVIADOS");
 			}
 			else {
 				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
 				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Enviados");
 				ventana.getPanelCentral().getMensajesFrame().getBtnBorrar().setVisible(false);
+				ventana.getTitulo().setText("EASY CHAT - MENSAJES RECIBIDOS");
 			}
 			ventana.getPanelCentral().validate();
 			ventana.getPanelCentral().repaint();
@@ -222,6 +227,7 @@ public class ButtonController implements ActionListener{
 			u = null;
 			ventana.getPanelCentral().remove(ventana.getPanelCentral().getMensajesFrame());
 			ventana.getPanelCentral().add(ventana.getPanelCentral().getLoginFrame());
+			ventana.getTitulo().setText("EASY CHAT - LOGIN");
 			break;
 		}
 	}

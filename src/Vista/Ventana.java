@@ -19,6 +19,7 @@ import Controlador.ButtonController;
 public class Ventana extends JFrame{
 
 	private PanelCentral panelCentral;
+	private JLabel titulo;
 	
 	public Ventana(ButtonController accion) {
 		super();
@@ -35,7 +36,7 @@ public class Ventana extends JFrame{
 		container.add(t);*/
 		
 		//Encabezado de la aplicación
-		JLabel titulo = new JLabel("EASY CHAT - LOGIN");
+		titulo = new JLabel("EASY CHAT - LOGIN");
 		titulo.setFont(new Font("Verdana", Font.PLAIN, 24));
 		titulo.setBackground(Color.BLACK);
 		titulo.setForeground(Color.BLUE.brighter());
@@ -59,6 +60,14 @@ public class Ventana extends JFrame{
 
 	public void setPanelCentral(PanelCentral panelCentral) {
 		this.panelCentral = panelCentral;
+	}
+
+	public JLabel getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(JLabel titulo) {
+		this.titulo = titulo;
 	}
 	
 	
