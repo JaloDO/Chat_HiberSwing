@@ -118,6 +118,7 @@ public class Conector {
 			em.persist(u);
 			t.commit();
 			resultado = true;
+			em.clear();
 		}catch(Exception e) {
 			t.rollback();
 			e.printStackTrace();
@@ -135,6 +136,7 @@ public class Conector {
 			em.merge(u);
 			t.commit();
 			resultado = true;
+			em.clear();
 		}catch(Exception e) {
 			t.rollback();
 			e.printStackTrace();
@@ -152,6 +154,7 @@ public class Conector {
 			em.persist(m);
 			t.commit();
 			resultado = true;
+			em.clear();
 		}catch(Exception e) {
 			t.rollback();
 			e.printStackTrace();
@@ -164,7 +167,7 @@ public class Conector {
 		List<Mensaje> resultado = null;
 		
 		try {
-			Query consulta = em.createQuery("from Mensaje where emisor = :emisor");
+			Query consulta = em.createQuery("from Mensaje where emisor.id = :emisor");
 			consulta.setParameter("emisor", u.getId());
 			resultado = consulta.getResultList();
 		}
@@ -179,7 +182,7 @@ public class Conector {
 		List<Mensaje> resultado = null;
 		
 		try {
-			Query consulta = em.createQuery("from Mensaje where receptor = :receptor");
+			Query consulta = em.createQuery("from Mensaje where receptor.id = :receptor");
 			consulta.setParameter("receptor", u.getId());
 			resultado = consulta.getResultList();
 		}
@@ -207,15 +210,15 @@ public class Conector {
 		return resultado;
 	}
 	
-	public boolean existeMensaje(int id) {
-		boolean resultado = false;
+	public Mensaje existeMensaje(int id) {
+		Mensaje resultado = null;
 		
 		try {
 			Query consulta = em.createQuery("from Mensaje where id = :id");
 			consulta.setParameter("id", id);
-			List<Usuario> r = consulta.getResultList();
+			List<Mensaje> r = consulta.getResultList();
 			if(!r.isEmpty()) {
-				resultado=true;
+				resultado=r.get(0);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception

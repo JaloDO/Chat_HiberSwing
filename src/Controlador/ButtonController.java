@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -40,11 +41,11 @@ public class ButtonController implements ActionListener{
 		switch(accion) {
 		
 		case "login":
-			//ventana.getPanelCentral().getLoginFrame().getLblMessage().setText("ACCION LOGIN");
 			u = new Usuario();
 			u.setNombre(ventana.getPanelCentral().getLoginFrame().getTxtName().getText());
 			u.setPassword(ventana.getPanelCentral().getLoginFrame().getTxtPass().getText());
 			u = conector.iniciarSesion(u);
+			List<Mensaje>rev = conector.mensajesRecibidos(u);
 			if(u!=null) {
 				ventana.getPanelCentral().setUsuario(u);
 				//Quitar JPanel de login de PanelCentral
@@ -56,7 +57,7 @@ public class ButtonController implements ActionListener{
 				ventana.getPanelCentral().validate();
 				ventana.getPanelCentral().repaint();
 				//Actualizar tabla de mensajes
-				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
+				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(rev);
 				ventana.getTitulo().setText("EASY CHAT - MENSAJES RECIBIDOS");
 				
 			}
@@ -142,16 +143,18 @@ public class ButtonController implements ActionListener{
 		case "cambiarMensajes":
 			String btn = ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().getText();
 			u = ventana.getPanelCentral().getUsuario();
-			u = conector.obtenerUsuario(u);
+			
 			if(btn.equals("Ver Enviados")) {
 				//cambiamos la tabla 
-				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
+				List<Mensaje>env = conector.mensajesEnviados(u);
+				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(env);
 				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Recibidos");
 				ventana.getPanelCentral().getMensajesFrame().getBtnBorrar().setVisible(true);
 				ventana.getTitulo().setText("EASY CHAT - MENSAJES ENVIADOS");
 			}
 			else {
-				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getRecibidos());
+				rev = conector.mensajesRecibidos(u);
+				ventana.getPanelCentral().getMensajesFrame().actualizarTabla(rev);
 				ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().setText("Ver Enviados");
 				ventana.getPanelCentral().getMensajesFrame().getBtnBorrar().setVisible(false);
 				ventana.getTitulo().setText("EASY CHAT - MENSAJES RECIBIDOS");
@@ -161,6 +164,7 @@ public class ButtonController implements ActionListener{
 			break;
 			
 		case "enviarMensaje":
+			String boton= ventana.getPanelCentral().getMensajesFrame().getBtnCambiar().getText();
 			//obtenemos el emisor
 			Usuario emisor = ventana.getPanelCentral().getUsuario();
 			//creamos el mensaje
@@ -183,9 +187,15 @@ public class ButtonController implements ActionListener{
 				}
 				else {
 					u = ventana.getPanelCentral().getUsuario();
-					u = conector.obtenerUsuario(u);
+					List<Mensaje>env = null;
+					if(boton.equals("Ver Recibidos")) {
+						env = conector.mensajesEnviados(u);
+					}
+					else {
+						env = conector.mensajesRecibidos(u);
+					}
 					JOptionPane.showMessageDialog(null, "Mensaje enviado con exito");
-					ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
+					ventana.getPanelCentral().getMensajesFrame().actualizarTabla(env);
 					ventana.getPanelCentral().validate();
 					ventana.getPanelCentral().repaint();
 				}
@@ -200,22 +210,23 @@ public class ButtonController implements ActionListener{
 				JOptionPane.showMessageDialog(null, "No se pueden borrar los mensajes recibidos");
 			}
 			else{
-				Mensaje mns = ventana.getPanelCentral().getUsuario().getEnviados().get(id);
+				Mensaje mns = new Mensaje();
+				mns.setCodigo(id);
+				mns = conector.existeMensaje(mns.getCodigo());
 				JOptionPane.showMessageDialog(null, "codigo del mensaje: "+mns.getCodigo());
 			
-				if(!conector.existeMensaje(mns.getCodigo())) {
+				if(mns==null) {
 					JOptionPane.showMessageDialog(null, "El mensaje no existe");
 				}
 				else {
-				
 					if(!conector.borrarMensaje(mns)) {
 						JOptionPane.showMessageDialog(null, "Error al borrar el mensaje");
 					}
 					else {
 						u = ventana.getPanelCentral().getUsuario();
-						u = conector.obtenerUsuario(u);
+						List<Mensaje>env = conector.mensajesEnviados(u);
 						JOptionPane.showMessageDialog(null, "Mensaje borrado con exito");
-						ventana.getPanelCentral().getMensajesFrame().actualizarTabla(u.getEnviados());
+						ventana.getPanelCentral().getMensajesFrame().actualizarTabla(env);
 						ventana.getPanelCentral().validate();
 						ventana.getPanelCentral().repaint();
 					}
@@ -228,6 +239,11 @@ public class ButtonController implements ActionListener{
 			ventana.getPanelCentral().remove(ventana.getPanelCentral().getMensajesFrame());
 			ventana.getPanelCentral().add(ventana.getPanelCentral().getLoginFrame());
 			ventana.getTitulo().setText("EASY CHAT - LOGIN");
+			break;
+			
+		case "cerrar":
+			conector.cerrar();
+			System.exit(0);
 			break;
 		}
 	}
