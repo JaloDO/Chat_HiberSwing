@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -22,38 +23,35 @@ public class PanelLogin extends JPanel{
 	//BorderLayout loginLayout;
 	
 	public PanelLogin(ButtonController accion) {
+		this.setLayout(new GridLayout(0, 1));
 		
-		/*JLabel lblLogin = new JLabel("LOGIN DE USUARIOS");
-		lblLogin.setFont(new Font("Verdana", Font.PLAIN, 30));
-		lblLogin.setForeground(new Color(0.58f,0.79f,0.9f));
-		lblLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblLogin);*/
+		JPanel superior = new JPanel();
+		superior.setLayout(new FlowLayout());
+		this.add(superior);
 		
-		//flow layout con el usuario (top)
-		//FlowLayout userLayout = new FlowLayout();
 		JLabel lblName = new JLabel("\nUsuario: ");
 		lblName.setFont(new Font("Verdana", Font.PLAIN, 24));
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		//userLayout.addLayoutComponent("lblName",lblName);
-		add(lblName);
+		superior.add(lblName);
 		txtName = new JTextField();
 		txtName.setColumns(20);
 		txtName.setEnabled(true);
 		txtName.setHorizontalAlignment(SwingConstants.LEFT);
 		//userLayout.addLayoutComponent("txtName",txtName);
-		add(txtName);
+		superior.add(txtName);
 		
 		//flow layout con la contraseña (middle)
 		//FlowLayout passLayout = new FlowLayout();
 		JLabel lblPass = new JLabel("Contraseña: ");
 		lblPass.setFont(new Font("Verdana", Font.PLAIN, 24));
 		lblPass.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblPass);
+		superior.add(lblPass);
 		txtPass = new JTextField();
 		txtPass.setColumns(16);
 		txtPass.setEnabled(true);
 		txtPass.setHorizontalAlignment(SwingConstants.LEFT);
-		add(txtPass);
+		superior.add(txtPass);
 		
 		
 		//flow layout con los botones (bottom)
@@ -63,7 +61,7 @@ public class PanelLogin extends JPanel{
 		btnLogin.setActionCommand("login");
 		btnLogin.addActionListener(accion);
 		btnLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		add(btnLogin);
+		superior.add(btnLogin);
 		
 		//boton para resetear campos del login
 		JButton btnResetLogin  =new JButton();
@@ -71,39 +69,8 @@ public class PanelLogin extends JPanel{
 		btnResetLogin.setActionCommand("resetLogin");
 		btnResetLogin.addActionListener(accion);
 		btnResetLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		add(btnResetLogin);
+		superior.add(btnResetLogin);
 		
-		/*
-		//label simulando link para ir a registrar
-		JLabel lblSignUp = new JLabel();
-		lblSignUp.setText("Todavía no tengo cuenta");
-		lblSignUp.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSignUp.setFont(new Font("Verdana", Font.HANGING_BASELINE, 14));
-		lblSignUp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
-		lblSignUp.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				super.mouseClicked(e);
-				//aquí hay que intentar mandar la acción
-				JButton btn = new JButton();
-				btn.setActionCommand("crearCuenta");
-				btn.addActionListener(accion);
-				btn.doClick();
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				super.mouseEntered(e);
-				lblSignUp.setText("<html><a href=''>Todavía no tengo cuenta</a></html>");
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				super.mouseExited(e);
-				lblSignUp.setText("Todavía no tengo cuenta");		
-			}
-		});
-		add(lblSignUp);
-		*/
 	
 		//boton para ir a registrar por si no sale lo del link XD
 		JButton btnSignUp = new JButton();
@@ -111,7 +78,7 @@ public class PanelLogin extends JPanel{
 		btnSignUp.setActionCommand("crearCuenta");
 		btnSignUp.addActionListener(accion);
 		btnSignUp.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		add(btnSignUp);
+		superior.add(btnSignUp);
 		
 		//Label para mensaje de error en el logueo
 		lblMessage = new JLabel();
@@ -119,8 +86,17 @@ public class PanelLogin extends JPanel{
 		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setFont(new Font("Verdana", Font.BOLD, 14));
 		lblMessage.setForeground(Color.RED);
-		add(lblMessage);
+		superior.add(lblMessage);
 		
+		JPanel inferior = new JPanel();
+		inferior.setLayout(new FlowLayout());
+		this.add(inferior);
+		
+		JButton btnCerrar = new JButton("Cerrar");
+		btnCerrar.setActionCommand("cerrar");
+		btnCerrar.addActionListener(accion);
+		btnCerrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		inferior.add(btnCerrar);
 	}
 
 	//getters & setters
