@@ -39,6 +39,7 @@ public class PanelMensajes extends JPanel {
 	
 	public PanelMensajes (ButtonController accion) {
 		
+
 		this.setLayout(new GridLayout(0, 1));
 		
 		//A�adir dos subpaneles
@@ -92,9 +93,14 @@ public class PanelMensajes extends JPanel {
 				// TODO Auto-generated method stub
 				if(!tablaMensajes.getSelectionModel().isSelectionEmpty()){
 					id_mensaje = Integer.parseInt(tablaMensajes.getModel().getValueAt(tablaMensajes.getSelectedRow(), 0).toString());
+
 				}
 			}
 		});
+		//Ocultar columna Id
+		tablaMensajes.getColumn("Id").setWidth(0);
+		tablaMensajes.getColumn("Id").setMinWidth(0);
+		tablaMensajes.getColumn("Id").setMaxWidth(0);
 		
 		tabla = new JScrollPane(tablaMensajes);
 		superior.add(tabla, BorderLayout.CENTER);

@@ -210,12 +210,14 @@ public class ButtonController implements ActionListener{
 				JOptionPane.showMessageDialog(null, "No se pueden borrar los mensajes recibidos");
 			}
 			else{
+
 				Mensaje mns = new Mensaje();
 				mns.setCodigo(id);
 				mns = conector.existeMensaje(mns.getCodigo());
 				JOptionPane.showMessageDialog(null, "codigo del mensaje: "+mns.getCodigo());
 			
 				if(mns==null) {
+
 					JOptionPane.showMessageDialog(null, "El mensaje no existe");
 				}
 				else {

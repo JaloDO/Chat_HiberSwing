@@ -26,5 +26,6 @@ public class Principal {
 		else {
 			JOptionPane.showMessageDialog(null, "Error al crear la conexión");
 		}
+		
 	}
 }
